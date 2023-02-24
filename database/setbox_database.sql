@@ -21,13 +21,49 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: lesson; Type: TABLE; Schema: public; Owner: edvardsmazprecnieks
+--
+
+CREATE TABLE public.lesson (
+    id integer NOT NULL,
+    subject_id integer NOT NULL,
+    date date NOT NULL,
+    progress integer
+);
+
+
+ALTER TABLE public.lesson OWNER TO edvardsmazprecnieks;
+
+--
+-- Name: lesson_id_seq; Type: SEQUENCE; Schema: public; Owner: edvardsmazprecnieks
+--
+
+CREATE SEQUENCE public.lesson_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.lesson_id_seq OWNER TO edvardsmazprecnieks;
+
+--
+-- Name: lesson_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: edvardsmazprecnieks
+--
+
+ALTER SEQUENCE public.lesson_id_seq OWNED BY public.lesson.id;
+
+
+--
 -- Name: subjects; Type: TABLE; Schema: public; Owner: edvardsmazprecnieks
 --
 
 CREATE TABLE public.subjects (
+    name character varying(255) NOT NULL,
     id integer NOT NULL,
-    user_id integer NOT NULL,
-    name character varying(255) NOT NULL
+    user_id integer NOT NULL
 );
 
 
@@ -60,9 +96,9 @@ ALTER SEQUENCE public.subjects_id_seq OWNED BY public.subjects.id;
 --
 
 CREATE TABLE public.users (
-    id integer NOT NULL,
     email character varying(255),
-    name character varying(255)
+    name character varying(255),
+    id integer NOT NULL
 );
 
 
@@ -91,6 +127,13 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: lesson id; Type: DEFAULT; Schema: public; Owner: edvardsmazprecnieks
+--
+
+ALTER TABLE ONLY public.lesson ALTER COLUMN id SET DEFAULT nextval('public.lesson_id_seq'::regclass);
+
+
+--
 -- Name: subjects id; Type: DEFAULT; Schema: public; Owner: edvardsmazprecnieks
 --
 
@@ -105,10 +148,18 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
+-- Data for Name: lesson; Type: TABLE DATA; Schema: public; Owner: edvardsmazprecnieks
+--
+
+COPY public.lesson (id, subject_id, date, progress) FROM stdin;
+\.
+
+
+--
 -- Data for Name: subjects; Type: TABLE DATA; Schema: public; Owner: edvardsmazprecnieks
 --
 
-COPY public.subjects (id, user_id, name) FROM stdin;
+COPY public.subjects (name, id, user_id) FROM stdin;
 \.
 
 
@@ -116,8 +167,15 @@ COPY public.subjects (id, user_id, name) FROM stdin;
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: edvardsmazprecnieks
 --
 
-COPY public.users (id, email, name) FROM stdin;
+COPY public.users (email, name, id) FROM stdin;
 \.
+
+
+--
+-- Name: lesson_id_seq; Type: SEQUENCE SET; Schema: public; Owner: edvardsmazprecnieks
+--
+
+SELECT pg_catalog.setval('public.lesson_id_seq', 1, false);
 
 
 --
@@ -135,11 +193,51 @@ SELECT pg_catalog.setval('public.users_id_seq', 1, false);
 
 
 --
--- Name: users id; Type: CONSTRAINT; Schema: public; Owner: edvardsmazprecnieks
+-- Name: lesson lesson_pkey; Type: CONSTRAINT; Schema: public; Owner: edvardsmazprecnieks
+--
+
+ALTER TABLE ONLY public.lesson
+    ADD CONSTRAINT lesson_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: subjects subjects_id_key; Type: CONSTRAINT; Schema: public; Owner: edvardsmazprecnieks
+--
+
+ALTER TABLE ONLY public.subjects
+    ADD CONSTRAINT subjects_id_key UNIQUE (id);
+
+
+--
+-- Name: subjects subjects_pkey; Type: CONSTRAINT; Schema: public; Owner: edvardsmazprecnieks
+--
+
+ALTER TABLE ONLY public.subjects
+    ADD CONSTRAINT subjects_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_id_key; Type: CONSTRAINT; Schema: public; Owner: edvardsmazprecnieks
 --
 
 ALTER TABLE ONLY public.users
-    ADD CONSTRAINT id UNIQUE (id);
+    ADD CONSTRAINT users_id_key UNIQUE (id);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: edvardsmazprecnieks
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: lesson lesson_subject_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: edvardsmazprecnieks
+--
+
+ALTER TABLE ONLY public.lesson
+    ADD CONSTRAINT lesson_subject_id_fkey FOREIGN KEY (subject_id) REFERENCES public.subjects(id);
 
 
 --
