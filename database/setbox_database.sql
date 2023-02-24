@@ -21,6 +21,18 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: files; Type: TABLE; Schema: public; Owner: edvardsmazprecnieks
+--
+
+CREATE TABLE public.files (
+    lesson_id integer NOT NULL,
+    info character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.files OWNER TO edvardsmazprecnieks;
+
+--
 -- Name: lesson; Type: TABLE; Schema: public; Owner: edvardsmazprecnieks
 --
 
@@ -148,6 +160,14 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
+-- Data for Name: files; Type: TABLE DATA; Schema: public; Owner: edvardsmazprecnieks
+--
+
+COPY public.files (lesson_id, info) FROM stdin;
+\.
+
+
+--
 -- Data for Name: lesson; Type: TABLE DATA; Schema: public; Owner: edvardsmazprecnieks
 --
 
@@ -193,6 +213,14 @@ SELECT pg_catalog.setval('public.users_id_seq', 1, false);
 
 
 --
+-- Name: files files_pkey; Type: CONSTRAINT; Schema: public; Owner: edvardsmazprecnieks
+--
+
+ALTER TABLE ONLY public.files
+    ADD CONSTRAINT files_pkey PRIMARY KEY (info);
+
+
+--
 -- Name: lesson lesson_pkey; Type: CONSTRAINT; Schema: public; Owner: edvardsmazprecnieks
 --
 
@@ -230,6 +258,14 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: files files_lesson_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: edvardsmazprecnieks
+--
+
+ALTER TABLE ONLY public.files
+    ADD CONSTRAINT files_lesson_id_fkey FOREIGN KEY (lesson_id) REFERENCES public.lesson(id);
 
 
 --
