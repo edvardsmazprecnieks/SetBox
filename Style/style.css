@@ -1,0 +1,60 @@
+.container {
+    display:grid;
+    height:100vh;
+    text-align: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1.5 1.3fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+    "nav nav nav nav nav"
+    "daytag1 daytag2 daytag3 daytag4 daytag5"
+    "m8 t8 w8 th8 f8"
+    "m9 t9 w9 th9 f9"
+    "m10 t10 w10 th10 f10"
+    "m11 t11 w11 th11 f11"
+    "m12 t12 w12 th12 f12"
+    "m13 t13 w13 th13 f13"
+    "m14 t14 w14 th14 f14"
+    "m15 t15 w15 th15 f15"
+    "m16 t16 w16 th16 f16"
+    "m17 t17 w17 th17 f17" 
+    /* "hourtag hourtag hourtag hourtag hourtag"
+    "hourtag hourtag hourtag hourtag hourtag"
+    "hourtag hourtag hourtag hourtag hourtag"
+    "hourtag hourtag hourtag hourtag hourtag"
+    "hourtag hourtag hourtag hourtag hourtag"
+    "hourtag hourtag hourtag hourtag hourtag"
+    "hourtag hourtag hourtag hourtag hourtag"
+    "hourtag hourtag hourtag hourtag hourtag"
+    "hourtag hourtag hourtag hourtag hourtag" */
+    ;
+}
+
+nav {
+    background: red;
+    grid-area: nav;
+    display: flex;
+    justify-content: space-between;
+}
+
+.daytag1 {
+    grid-area: daytag1;
+}
+.daytag2 {
+    grid-area: daytag2;
+}
+.daytag3 {
+    grid-area: daytag3;
+}
+.daytag4 {
+    grid-area: daytag4;
+}
+.daytag5 {
+    grid-area: daytag5;
+}
+
+.hourtag {
+    grid-area: hourtag;
+    background: blue;
+    min-height: 50px;
+    border: 1px solid black;
+}
