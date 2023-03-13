@@ -276,6 +276,9 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: lesson; Type: TABLE DATA; Schema: public; Owner: edvardsmazprecnieks
 --
 
+INSERT INTO public.lesson VALUES (4, 3, '2023-03-12', 90);
+INSERT INTO public.lesson VALUES (5, 4, '2023-02-17', NULL);
+INSERT INTO public.lesson VALUES (6, 3, '2023-01-25', 60);
 
 
 --
@@ -288,12 +291,15 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: subjects; Type: TABLE DATA; Schema: public; Owner: edvardsmazprecnieks
 --
 
+INSERT INTO public.subjects VALUES ('Math', 3, 1, NULL);
+INSERT INTO public.subjects VALUES ('English', 4, 1, NULL);
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: edvardsmazprecnieks
 --
 
+INSERT INTO public.users VALUES ('Edvards', 'edvards@edvards.lv', 1);
 
 
 --
@@ -313,7 +319,7 @@ SELECT pg_catalog.setval('public.files_id_seq', 1, false);
 -- Name: lesson_id_seq; Type: SEQUENCE SET; Schema: public; Owner: edvardsmazprecnieks
 --
 
-SELECT pg_catalog.setval('public.lesson_id_seq', 1, false);
+SELECT pg_catalog.setval('public.lesson_id_seq', 6, true);
 
 
 --
@@ -327,14 +333,14 @@ SELECT pg_catalog.setval('public.studygroup_id_seq', 1, false);
 -- Name: subjects_id_seq; Type: SEQUENCE SET; Schema: public; Owner: edvardsmazprecnieks
 --
 
-SELECT pg_catalog.setval('public.subjects_id_seq', 1, false);
+SELECT pg_catalog.setval('public.subjects_id_seq', 4, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: edvardsmazprecnieks
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1, false);
+SELECT pg_catalog.setval('public.users_id_seq', 1, true);
 
 
 --
@@ -383,6 +389,14 @@ ALTER TABLE ONLY public.subjects
 
 ALTER TABLE ONLY public.subjects
     ADD CONSTRAINT subjects_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: edvardsmazprecnieks
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_key UNIQUE (email);
 
 
 --
