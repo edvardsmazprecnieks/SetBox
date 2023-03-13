@@ -41,14 +41,13 @@ def subject(subject_id):
     progress = 0
     divide = 0
     for each_progress in all_progress:
-        print(each_progress[0])
         if each_progress[0] != None:
             progress = progress + int(each_progress[0])
         divide = divide + 1
     progress = progress / divide
     cursor.close()
     connection.close()
-    return render_template('subject.html', subject_name = subject_name, subject_info=subject_info, progress = 39)
+    return render_template('subject.html', subject_name = subject_name, subject_info=subject_info, progress = progress)
 
 @app.route('/user')
 def user():
