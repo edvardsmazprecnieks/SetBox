@@ -86,7 +86,9 @@ CREATE TABLE public.lesson (
     id integer NOT NULL,
     subject_id integer NOT NULL,
     date date NOT NULL,
-    progress integer
+    progress integer,
+    start_time time without time zone NOT NULL,
+    end_time time without time zone NOT NULL
 );
 
 
@@ -276,9 +278,6 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: lesson; Type: TABLE DATA; Schema: public; Owner: edvardsmazprecnieks
 --
 
-INSERT INTO public.lesson VALUES (4, 3, '2023-03-12', 90);
-INSERT INTO public.lesson VALUES (5, 4, '2023-02-17', NULL);
-INSERT INTO public.lesson VALUES (6, 3, '2023-01-25', 60);
 
 
 --
@@ -291,15 +290,14 @@ INSERT INTO public.lesson VALUES (6, 3, '2023-01-25', 60);
 -- Data for Name: subjects; Type: TABLE DATA; Schema: public; Owner: edvardsmazprecnieks
 --
 
-INSERT INTO public.subjects VALUES ('Math', 3, 1, NULL);
-INSERT INTO public.subjects VALUES ('English', 4, 1, NULL);
+
 
 
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: edvardsmazprecnieks
 --
 
-INSERT INTO public.users VALUES ('Edvards', 'edvards@edvards.lv', 1);
+
 
 
 --
