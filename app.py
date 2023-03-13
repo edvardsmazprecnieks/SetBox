@@ -49,6 +49,16 @@ def subject(subject_id):
     connection.close()
     return render_template('subject.html', subject_name = subject_name, subject_info=subject_info, progress = progress)
 
+@app.route('/lesson/<lesson_id>')
+def lesson(lesson_id):
+    connection = get_database_connection()
+    cursor = connection.cursor()
+    cursor.execute("SELECT subjects.name, lesson.name, TO_CHAR(lesson.date, 'dd.mm.yyyy') FROM subjects JOIN lesson ON subjects.id = lesson.subject_id WHERE lesson.id = " + lesson_id)
+    lesson_info = cursor.fetchone()
+    cursor.close()
+    connection.close()
+    return render_template('lesson.html', info=lesson_info)
+
 @app.route('/user')
 def user():
     connection = get_database_connection()
