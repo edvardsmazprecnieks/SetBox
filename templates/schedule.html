@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="{{url_for('static', filename='css/schedule.css')}}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Setbox</title>
-  </head>
-  <body>
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/schedule.css')}}">
+{% endblock %}
+
+{% block main %}
     <header></header>
     <div class="container">
       <nav>
@@ -93,5 +90,4 @@
       </div>
     </div>
     <footer></footer>
-  </body>
-</html>
+{% endblock %}
