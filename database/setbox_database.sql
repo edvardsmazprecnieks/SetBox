@@ -86,7 +86,9 @@ CREATE TABLE public.lesson (
     id integer NOT NULL,
     subject_id integer NOT NULL,
     date date NOT NULL,
-    progress integer
+    progress integer,
+    start_time time without time zone NOT NULL,
+    end_time time without time zone NOT NULL
 );
 
 
@@ -290,9 +292,11 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 
+
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: edvardsmazprecnieks
 --
+
 
 
 
@@ -313,7 +317,7 @@ SELECT pg_catalog.setval('public.files_id_seq', 1, false);
 -- Name: lesson_id_seq; Type: SEQUENCE SET; Schema: public; Owner: edvardsmazprecnieks
 --
 
-SELECT pg_catalog.setval('public.lesson_id_seq', 1, false);
+SELECT pg_catalog.setval('public.lesson_id_seq', 6, true);
 
 
 --
@@ -327,14 +331,14 @@ SELECT pg_catalog.setval('public.studygroup_id_seq', 1, false);
 -- Name: subjects_id_seq; Type: SEQUENCE SET; Schema: public; Owner: edvardsmazprecnieks
 --
 
-SELECT pg_catalog.setval('public.subjects_id_seq', 1, false);
+SELECT pg_catalog.setval('public.subjects_id_seq', 4, true);
 
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: edvardsmazprecnieks
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1, false);
+SELECT pg_catalog.setval('public.users_id_seq', 1, true);
 
 
 --
@@ -383,6 +387,14 @@ ALTER TABLE ONLY public.subjects
 
 ALTER TABLE ONLY public.subjects
     ADD CONSTRAINT subjects_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: edvardsmazprecnieks
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_key UNIQUE (email);
 
 
 --
