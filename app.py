@@ -59,15 +59,5 @@ def lesson(lesson_id):
     connection.close()
     return render_template('lesson.html', info=lesson_info)
 
-@app.route('/user')
-def user():
-    connection = get_database_connection()
-    cursor = connection.cursor()
-    cursor.execute('SELECT subjects.name, lesson.date, lesson.progress FROM users JOIN subjects ON users.id = subjects.user_id JOIN lesson ON subjects.id = lesson.subject_id WHERE users.id = 1')
-    subject_data = cursor.fetchall()
-    cursor.close()
-    connection.close()
-    return render_template('user.html', subject_data=subject_data)
-
 if __name__ == '__main__':
     app.run(host='localhost', port=3000, debug=True)
