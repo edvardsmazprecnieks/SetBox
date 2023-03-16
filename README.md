@@ -41,7 +41,7 @@ For Windows cmd:
 `pip install -r requirements.txt`
 
 
-5. Back outside of psql terminal, import pg_dump into database
+5. Import pg_dump into database
 
 `psql setbox < ./database/setbox_database.sql`
 
