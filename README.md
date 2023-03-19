@@ -48,7 +48,7 @@ python 3.9.12, PostgreSQL 15.2
 
 6. Run the app to see if it is working
 
-        `python app.py`
+        `python run.py`
 
 
 ### Troubleshooting
