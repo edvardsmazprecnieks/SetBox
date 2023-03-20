@@ -58,6 +58,3 @@ def lesson(lesson_id):
     cursor.close()
     connection.close()
     return render_template('lesson.html', info=lesson_info)
-
-if __name__ == '__main__':
-    app.run(host='localhost', port=3000, debug=True)
