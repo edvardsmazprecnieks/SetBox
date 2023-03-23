@@ -5,19 +5,17 @@
 {% endblock %}
 
 {% block main %}
-    <header></header>
+    <div class="container">
       <nav>
-        <a href="/schedule"><img src="" alt="Logo/Home"></a>
-        <div class="nav1">
-          <a href="/profile">Profile</a>
-        </div>
-        <div  class="nav1">
+        <a href="/schedule" class="logo"><img src="" alt="Logo/Home"></a>
+        <a href="/profile">Profile</a>
+        <div>
           Own sets
         </div>
-        <div  class="nav1">
+        <div>
           Search Bar
         </div>
-        <div  class="nav1">
+        <div>
           Add Subject
         </div>
       </nav> 
@@ -111,5 +109,13 @@
           <td></td>
         </tr>
       </table> 
-    <footer></footer>
+      <footer>
+        <form action="/action_page.php">
+          <input type="checkbox" id="schedule_my" name="schedule_my" value="MySchedule">
+          <label for="schedule_my">My Schedule</label>
+          <input type="checkbox" id="schedule_shared" name="schedule_shared" value="SharedSchedule">
+          <label for="schedule_shared">Shared Schedule</label>
+        </form>
+      </footer>
+    </div>
 {% endblock %}
