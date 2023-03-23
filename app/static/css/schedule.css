@@ -1,15 +1,19 @@
-
+.container {
+    display: flex;
+    flex-direction: column;
+}
 
 nav {
     background: red;
     display: flex;
-    justify-content: space-between;
     flex-direction: row;
     height: 50px;
 }
 
-.nav1 {
-    vertical-align: middle;
+nav div, nav a{
+    margin: auto;
+    border: solid black 2px;
+    padding: 20px;
 }
 
 table {
@@ -29,9 +33,15 @@ th {
 }
 
 td:not(.tdtime) {
-    width:calc((100%-30px)/5);
+    width:calc((100%-40px)/5);
 }
 
 .tdtime {
-    width: 30px;
+    width: 40px;
+    text-align: center;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
 }
