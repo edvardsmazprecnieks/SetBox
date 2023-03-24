@@ -1,10 +1,18 @@
-.back-to-subject {
+.back-to-subject, .add_lesson {
     position: fixed;
-    top: 20px;
-    left: 20px;
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.back-to-subject{
+    top: 20px;
+    left: 20px;
+}
+
+.add-lesson{
+    top: 20px;
+    right: 20px;
 }
