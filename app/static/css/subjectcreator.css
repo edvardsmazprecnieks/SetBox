@@ -26,6 +26,14 @@
     flex-direction: row;
 }
 
+.day {
+    width: 80px;
+}
+
+.daytimeselector {
+    height: 30px;
+}
+
 .weekmonthselector {
     display: flex;
     flex-direction: column;
