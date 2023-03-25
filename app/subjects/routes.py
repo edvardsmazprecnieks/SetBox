@@ -41,3 +41,8 @@ def subject(subject_id):
     connection.close()
     return render_template('subjects/subject.html', subject_name=subject_name, subject_info=subject_info, progress=progress)
 
+
+@blueprint.route('/subjectcreator/')
+def addlesson():
+    return render_template('subjects/subjectcreator.html')
+

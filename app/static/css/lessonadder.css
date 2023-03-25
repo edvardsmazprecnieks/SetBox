@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.subjectselector {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+label {
+    margin-right: 30px;
+}
+
+.dateselector {
+    display: flex;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+#birthday {
+    height: 20px;
+    align-self: center;
+    margin-right: 30p
+}
+
+label[for="birthday"] {
+  align-self: center;
+}
+
+.nameinput {
+    display: flex;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+p {
+    display: flex;
+    justify-content: center;
+}
+
+#need to clean up the code, everything should be in one form selector; all justify-contents should be in container but doesnt work

@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.startdate {
+    margin-top: 50px;
+}
+
+.weekdayselector {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.dayselector {
+    display: flex;
+    flex-direction: row;
+}
+
+.weekmonthselector {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.weekselector {
+    display: flex;
+    flex-direction: row;
+}
