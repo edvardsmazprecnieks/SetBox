@@ -2,7 +2,7 @@ import os
 
 import psycopg2
 from flask import Flask
-from . import subjects, lesson, schedule
+from . import subjects, lesson, schedule, user
 
 
 def get_database_connection():
@@ -28,3 +28,4 @@ def register_blueprints(app: Flask):
     app.register_blueprint(subjects.routes.blueprint)
     app.register_blueprint(lesson.routes.blueprint)
     app.register_blueprint(schedule.routes.blueprint)
+    app.register_blueprint(user.routes.blueprint)
