@@ -1,5 +1,18 @@
-h1, h2, h4 {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h4 {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-weight: bold;
   color: #062021;
   text-align: center;
@@ -7,14 +20,38 @@ h1, h2, h4 {
 }
 h1 {
   font-size: 52px;
-  }  
+}
 h2 {
   font-size: 45px;
 }
-h4{
+h4 {
   font-size: 25px;
 }
 
-a{
+a {
   text-decoration: none;
+}
+nav {
+  height: 50px;
+  background: green;
+}
+.flexcontainer {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+nav ul {
+  display: flex;
+  justify-content: space-between;
+}
+nav ul li {
+  list-style: none;
+  margin-left: 20px;
+}
+nav ul li a {
+  color: black;
+  font-weight: bolder;
+}
+a:hover {
+  color: grey;
 }
