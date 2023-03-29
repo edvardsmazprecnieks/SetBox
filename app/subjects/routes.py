@@ -42,7 +42,7 @@ def subject(subject_id):
     return render_template('subjects/subject.html', subject_name=subject_name, subject_info=subject_info, progress=progress)
 
 
-@blueprint.route('/subjectcreator/')
+@blueprint.route('/subjectcreator')
 def addlesson():
     return render_template('subjects/subjectcreator.html')
 
