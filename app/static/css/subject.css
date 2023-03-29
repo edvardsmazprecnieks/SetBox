@@ -43,3 +43,14 @@ table, .progress-bar {
   a:hover {
     color: grey;
   }
+
+  .back-to-subjects {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }  

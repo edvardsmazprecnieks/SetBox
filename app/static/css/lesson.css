@@ -8,3 +8,39 @@
     border-radius: 5px;
     cursor: pointer;
 }
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+  }
+  
+  thead {
+    background-color: #f2f2f2;
+  }
+  
+  th {
+    text-align: left;
+    padding: 12px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  td {
+    padding: 12px;
+  } 
+
+  a {
+    color: black;
+  }
+
+  a:hover {
+    color: grey;
+  }
+  p {
+    font-size: 12px;
+  }

@@ -5,10 +5,33 @@
 {% endblock %}
 
 {% block main %}
-<a href="/subject/{{ info[3] }}" class="back-to-subject">Back to subject</a>
-{% if info[1] == None %}
-    <h2>{{ info[0] }} - {{ info[2]}}</h2>
+<a href="/subject/{{ info.Subject.id }}" class="back-to-subject">Back to subject</a>
+{% if info.Lesson.name == None %}
+    <h2>{{ info.Subject.name }} - {{ info.Lesson.formatted_date }}</h2>
 {% else %}
-    <h2>{{ info[1] }} ({{ info[0]}}) - {{ info[2] }}</h2>
+    <h2>{{ info.Lesson.name }} ({{ info.Subject.name }}) - {{ info.Lesson.formatted_date }}</h2>
 {% endif %}
+<table>
+    <tr>
+        <th>Name</th>
+        <th>File type</th>
+    </tr>
+    {% for file in files %}
+    <tr>
+        <th><a href="/files/{{file.filename}}" target="_blank">{{ file.name }}</a></th>
+        <th>{{ file.type }}</th>
+    </tr>
+    {% endfor %}
+    <tr>
+        <th>
+            <form action="/upload/{{ info.Lesson.id }}" method="POST" enctype="multipart/form-data">
+                <p><input type="file" name="file">
+                Name: <input type="text" name="name"></p>
+        </th>
+        <th>
+                <button type="submit">Upload</button>
+            </form>
+        </th>
+    </tr>
+</table>
 {% endblock %}
