@@ -1,13 +1,15 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, Date, Time, VARCHAR, ForeignKey, Boolean, func
 from sqlalchemy.orm import column_property
+from flask_login import UserMixin
 
 Base = declarative_base()
 
-class User(Base):
+class User(Base, UserMixin):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     email = Column(VARCHAR(255), nullable=False, unique=True)
+    password = Column(VARCHAR(1024), nullable=False)
     first_name = Column(VARCHAR(50), nullable=False)
     
 class Subject(Base):

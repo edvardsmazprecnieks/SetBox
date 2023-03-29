@@ -1,23 +1,21 @@
-{% extends 'base.html' %} {% block main %}
-<form action="" method="post">
-  <label for="mail">E-Mail</label>
-  <input
-    type="email"
-    id="mail"
-    name="mail"
-    placeholder="Your Email address"
-    required
-  />
+{% extends 'base.html' %} 
+
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/user_forms.css')}}">
+{% endblock %}
+
+{% block main %}
+
+<form method="post">
+
+  <label for="email">E-mail</label>
+  <input type="email" id="email" name="email" required/>
+
   <label for="password">Password</label>
-  <input
-    type="password"
-    maxlength="12"
-    minlength="6"
-    id="password"
-    name="password"
-    placeholder="Your password"
-    required
-  />
-  <button type="submit">Submit</button>
+  <input type="password" maxlength="40" minlength="8" id="password" name="password" required/>
+
+  <button type="submit">Login</button>
+  
 </form>
+
 {% endblock %}

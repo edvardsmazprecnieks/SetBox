@@ -1,5 +1,6 @@
 from flask import Flask
 from . import subjects, lesson, schedule, user, for_database
+from app.extensions.authentication import login_manager
 
 
 def create_app():
@@ -7,6 +8,7 @@ def create_app():
     app.config.from_object('app.config')
 
     register_blueprints(app)
+    login_manager.init_app(app)
 
     return app
 
