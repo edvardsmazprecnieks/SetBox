@@ -9,7 +9,7 @@
 <br><br>
 <div class="button-container">
     {% for subject in subject_names %}
-    <a href="/subject/{{ subject[0] }}">{{ subject[1] }}</a>
+    <a href="/subject/{{ subject.id }}">{{ subject.name }}</a>
     {% endfor %}
 </div>
 {% endblock %}

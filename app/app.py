@@ -1,18 +1,5 @@
-import os
-
-import psycopg2
 from flask import Flask
-from . import subjects, lesson, schedule
-
-
-def get_database_connection():
-    connection = psycopg2.connect(
-        host="localhost",
-        database="setbox",
-        user=os.environ['DB_USERNAME'],
-        password=os.environ['DB_PASSWORD']
-    )
-    return connection
+from . import subjects, lesson, schedule, for_database
 
 
 def create_app():
@@ -28,3 +15,4 @@ def register_blueprints(app: Flask):
     app.register_blueprint(subjects.routes.blueprint)
     app.register_blueprint(lesson.routes.blueprint)
     app.register_blueprint(schedule.routes.blueprint)
+    app.register_blueprint(for_database.routes.blueprint)

@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block main %}
-    <h2>{{ subject_name[0] }}</h2>
+    <a href="/subject" class="back-to-subjects">Back to subjects</a>
+    <h2>{{ subject_name.name }}</h2>
     <br><br>
     <table>
         <tr>
@@ -15,16 +16,16 @@
         </tr>
         {% for info in subject_info %}
             <tr>
-                <th><a href="/lesson/{{ info[3] }}">{{ info[0] }}</a></th>
-                {% if info[1] == None %}
+                <th><a href="/lesson/{{ info.id }}">{{ info.formatted_date }}</a></th>
+                {% if info.name == None %}
                     <th></th>
                 {% else %}
-                    <th>{{ info[1] }}</th>
+                    <th>{{ info.name }}</th>
                 {% endif %}
-                {% if info[2] == None %}
+                {% if info.progress == None %}
                     <th>Not started</th>
                 {% else %}
-                    <th>{{ info[2] }}%</th>
+                    <th>{{ info.progress }}%</th>
                 {% endif %}
             </tr>
         {% endfor %}
