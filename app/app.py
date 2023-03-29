@@ -5,42 +5,13 @@ from flask import Flask
 from . import subjects, lesson, schedule
 
 # def schedule():
-#     Maths = [
-#     [0, 0, 0, 0, 0], 
-#     [0, 0, 0, 0, 0], 
-#     [0, 0, 0, 0, 0], 
-#     [0, 0, 0, 0, 0], 
-#     [0, 0, 1, 0, 0], 
-#     [0, 0, 0, 0, 0], 
-#     [0, 0, 0, 0, 0], 
-#     [0, 0, 0, 0, 0], 
-#     [0, 0, 0, 0, 0], 
-#     [0, 0, 0, 0, 0]
-#     ]
-   
-#     for list in Maths:
-#         hour = 8
-#         color = f"color{hour}"
-#         for n in list:
-#             daycounter = 0
-#             if n >= 0:
-#                 if daycounter == 0:
-#                     color = f"color{daycounter}m"
-#                 elif daycounter == 1:
-#                     color = f"color{daycounter}tu"
-#                 elif daycounter == 2:
-#                     color = f"color{daycounter}w"
-#                 elif daycounter == 3:
-#                     color = f"color{daycounter}th"
-#                 elif daycounter == 4:
-#                     color = f"color{daycounter}f"
-#                 else: 
-#                     color = ""
-#             daycounter += 1
-#         hour += 1
-#         colorwithstyle = "style='background: blue'"
+#     timeidentifier = ['color8m', 'color8tu', 'color8w', 'color8th', 'color8f', 'color9m', 'color9tu', 'color9w', 'color9th', 'color9f', 'color10m', 
+#                   'color10tu', 'color10w', 'color10th', 'color10f', 'color11m', 'color11tu', 'color11w', 'color11th', 'color11f', 'color12m',
+#                   'color12tu', 'color12w', 'color12th', 'color12f', 'color13m', 'color13tu', 'color13w', 'color13th', 'color13f', 'color14m',
+#                   'color14tu', 'color14w', 'color14th', 'color14f', 'color15m', 'color15tu', 'color15w', 'color15th', 'color15f', 'color16m',
+#                   'color16tu', 'color16w', 'color16th', 'color16f', 'color17m', 'color17tu', 'color17w', 'color17th', 'color17f']
 
-
+#     "style='background: blue'"
 
 def get_database_connection():
     connection = psycopg2.connect(
