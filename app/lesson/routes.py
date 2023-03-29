@@ -14,6 +14,6 @@ def lesson(lesson_id):
     connection.close()
     return render_template('lesson/lesson.html', info=lesson_info)
 
-@blueprint.route('/lessonadder/')
+@blueprint.route('/lessonadder')
 def addlesson():
     return render_template('lesson/lessonadder.html')

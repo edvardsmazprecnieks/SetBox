@@ -7,37 +7,47 @@
 {% block main %}
 <div class="container">
     <h1>Add a Lesson</h1>
-    <br><br>
-        <div class ="subjectselector">
-            <label for="subjects">Subject</label>
-            <select name="subjects" id="subjects">
+    <table>
+        <tr>
+            <th>Subject</th>
+            <th>
+                <form>
+                    <div class ="subjectselector">
+                        <select name="subjects" id="subjects">
                     <!-- {% for subject in subject_names %}
                     <option value="{{ subject[1] }}">subject[1]>{{ subject[1] }}</a>
                     {% endfor %} -->
-                <option value="maths">Maths</option>
-                <option value="english">English</option>
-                <option value="spanish">Spanish</option>
-                <option value="german">German</option>
-            </select>
-        </div>
-        <div class ="dateselector">
-            <form action="/action_page.php">
-                <div>
-                    <label for="birthday">Select Date:</label>
-                    <input type="date" id="birthday" name="birthday">
+                            <option value="maths">Maths</option>
+                            <option value="english">English</option>
+                            <option value="spanish">Spanish</option>
+                            <option value="german">German</option>
+                        </select>
+                    </div>
+            </th>
+        </tr>
+        <tr>
+            <th>Date</th>
+            <th>
+                    <div class ="dateselector">
+                        <input type="date" id="lesson_date" name="lesson_date">
+                    </div>
+            </th>
+        </tr>
+        <tr>
+            <th>Lesson Name</th>
+            <th>
+                <div class ="nameinput">
+                    <input type="text" id="lesson_name" name="lesson_name"><br>
                 </div>
-                <div>
-                    <label for="frequencyselector">Choose this automatically with frequency in "Subjects":</label>
-                    <input type="checkbox" id="frequencyselector">
-                </div>
-            </form>          
-        </div>
-        <div class ="nameinput">
-            <form>
-                <label for="fname">Name Lesson:</label><br>
-                <input type="text" id="fname" name="fname"><br>
-            </form> 
-        </div>
-        <p><button>Submit</button></p>
+            </th>
+        <tr/>
+        <tr>
+            <th></th>
+            <th>
+            <button>Submit</button>
+            </form>
+            </th>
+        </tr>
+    </table>
 </div>
 {% endblock %}
