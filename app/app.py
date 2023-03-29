@@ -1,5 +1,5 @@
 from flask import Flask
-from . import subjects, lesson, schedule, for_database
+from . import subjects, lesson, schedule, user, for_database
 
 
 def create_app():
@@ -16,3 +16,4 @@ def register_blueprints(app: Flask):
     app.register_blueprint(lesson.routes.blueprint)
     app.register_blueprint(schedule.routes.blueprint)
     app.register_blueprint(for_database.routes.blueprint)
+    app.register_blueprint(user.routes.blueprint)

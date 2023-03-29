@@ -5,7 +5,7 @@ from sqlalchemy import func
 
 blueprint = Blueprint('subjects', __name__)
 
-@blueprint.route('/')
+
 @blueprint.route('/subject')
 def subjects():
     s = Session()
