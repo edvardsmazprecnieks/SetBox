@@ -14,27 +14,29 @@
             <label for="fname">Subject name:</label><br>
             <input type="text" id="fname" name="fname"><br>
         </div>
-        <div class="startenddate">
-            <div class="startdate">
-                <label for="startdate">Start Date:</label>
-                <input type="date" id="startdate" name="startdate">
-            </div>
-            <div>
-                <label for="enddate">End Date:</label>
-                <input type="date" id="enddate" name="enddate">
-            </div>
+        <div class="startdate">
+            <label for="startdate">Start Date:</label>
+            <input type="date" id="startdate" name="startdate">
         </div>
-        <!-- not the pretiest solution, maybe drop down menu? -->
-        <div class="timeselectors">
+        <div class="timeselector">
             <div class="starttime">
-                <label for="from">Select a time:</label>
-                <input type="time" id="from" name="from"> 
-                <label for="from">-</label>
+                <label for="appt">Starttime:</label>
+                <input type="time" id="appt" name="appt"> 
             </div>
             <div class="endtime">
-                <label for="until">Select a time:</label>
-                <input type="time" id="until" name="until"> 
+                <label for="appt">Endtime:</label>
+                <input type="time" id="appt" name="appt"> 
             </div>
+        </div>
+        <label for="frequency">Frequency:</label>
+        <select name="frequency" id="frequency">
+          <option value="1x">1x</option>
+          <option value="1xweek">1x per Week</option>
+          <option value="1xmonth">1x per Month</option>
+        </select> 
+        <div>
+            <label for="enddate">End Date:</label>
+            <input type="date" id="enddate" name="enddate">
         </div>
         <div>
             <p><button>Submit</button></p>
