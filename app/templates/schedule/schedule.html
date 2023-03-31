@@ -1,130 +1,32 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<link rel="stylesheet" href="{{url_for('static', filename='css/schedule.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/schedule.css')}}"/>
 {% endblock %}
 
+
 {% block main %}
-    <div class="container">
-      <nav>
-        <a href="/schedule" class="logo"><img src="" alt="Logo/Home"></a>
-        <a href="/profile">Profile</a>
-        <div>
-          Own sets
-        </div>
-        <div>
-          Search Bar
-        </div>
-        <a href="/lessonadder">Add lesson</a>
-      </nav> 
-      <div class="weekselektor">
-        <div>
-          <button type="button"><p><i class="arrow left"></i></p></button> 
-        </div>
-        <div>
-          <p>WEEK 27.03.23 - 02.04.23</p>
-        </div>
-        <div>
-          <p><i class="arrow right"></i></p>
-        </div>
-      </div>
-      <table>
-        <tr>
-          <th class="tdtime">Time</th>
-          <th>Monday</th>
-          <th>Tuesday</th>
-          <th>Wednesday</th>
-          <th>Thursday</th>
-          <th>Friday</th>
-        </tr>
-        <tr>
-          <td class="tdtime">8</td>
-          <td {{ color8m }}></td>
-          <td {{ color8tu }}></td>
-          <td {{ color8w }}></td>
-          <td {{ color8th }}></td>
-          <td {{ color8f }}></td>
-        </tr>
-        <tr>
-          <td class="tdtime">9</td>
-          <td {{ color9m }}></td>
-          <td {{ color9tu }}></td>
-          <td {{ color9w }}></td>
-          <td {{ color9th }}></td>
-          <td {{ color9f }}></td>
-        </tr>
-        <tr>
-          <td class="tdtime">10</td>
-          <td {{ color10m }}></td>
-          <td {{ color10tu }}></td>
-          <td {{ color10w }}></td>
-          <td {{ color10th }}></td>
-          <td {{ color10f }}></td>
-        </tr>
-        <tr>
-          <td class="tdtime">11</td>
-          <td {{ color11m }}></td>
-          <td {{ color11tu }}></td>
-          <td {{ color11w }}></td>
-          <td {{ color11th }}></td>
-          <td {{ color11f }}></td>
-        </tr>
-        <tr>
-          <td class="tdtime">12</td>
-          <td {{ color12m }}></td>
-          <td {{ color12tu }}></td>
-          <td {{ color12w }}></td>
-          <td {{ color12th }}></td>
-          <td {{ color12f }}></td>
-        </tr>
-        <tr>
-          <td class="tdtime">13</td>
-          <td {{ color13m }}></td>
-          <td {{ color13tu }}></td>
-          <td {{ color13w }}></td>
-          <td {{ color13th }}></td>
-          <td {{ color13f }}></td>
-        </tr>
-        <tr>
-          <td class="tdtime">14</td>
-          <td {{ color14m }}></td>
-          <td {{ color14tu }}></td>
-          <td {{ color14w }}></td>
-          <td {{ color14th }}></td>
-          <td {{ color14f }}></td>
-        </tr>
-        <tr>
-          <td class="tdtime">15</td>
-          <td {{ color15m }}></td>
-          <td {{ color15tu }}></td>
-          <td {{ color15w }}></td>
-          <td {{ color15th }}></td>
-          <td {{ color15f }}></td>
-        </tr>
-        <tr>
-          <td class="tdtime">16</td>
-          <td {{ color16m }}></td>
-          <td {{ color16tu }}></td>
-          <td {{ color16w }}></td>
-          <td {{ color16th }}></td>
-          <td {{ color16f }}></td>
-        </tr>
-        <tr>
-          <td class="tdtime">17</td>
-          <td {{ color17m }}></td>
-          <td {{ color17tu }}></td>
-          <td {{ color17w }}></td>
-          <td {{ color17th }}></td>
-          <td {{ color17f }}></td>
-        </tr>
-      </table> 
-      <footer>
-        <form action="/action_page.php">
-          <input type="checkbox" id="schedule_my" name="schedule_my" value="MySchedule">
-          <label for="schedule_my"><p>My Subjects</p></label>
-          <input type="checkbox" id="schedule_shared" name="schedule_shared" value="SharedSchedule">
-          <label for="schedule_shared"><p>Shared Subjects</p></label>
-        </form>
-      </footer>
-    </div>
+<p>Switch to a different week: </p> 
+<table>
+    <tr>
+        <td></td>
+        {% for date in weekdates %}
+            <td>{{ date }}</td>
+        {% endfor %}
+    </tr>
+    {% for time in times %}
+    <tr>
+        <td>{{ time }}</td>
+        {% for date in weekdates %}
+        <td>
+            {% for lesson in lessons %}
+            {% if lesson.formatted_date == date and lesson.start_time <= time and lesson.end_time > time %} 
+                {{ lesson.name }}
+            {% endif %}
+            {% endfor %}
+        </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}
