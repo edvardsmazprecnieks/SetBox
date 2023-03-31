@@ -8,80 +8,35 @@
 <h1>Create a Subject</h1>
 <br><br>
 <div class="container">
+    <p><i class="arrow left"></i></p>
     <form>
         <div>
             <label for="fname">Subject name:</label><br>
             <input type="text" id="fname" name="fname"><br>
         </div>
-        <div class="startenddate">
-            <div class="startdate">
-                <label for="startdate">Start Date:</label>
-                <input type="date" id="startdate" name="startdate">
+        <div class="startdate">
+            <label for="startdate">Start Date:</label>
+            <input type="date" id="startdate" name="startdate">
+        </div>
+        <div class="timeselector">
+            <div class="starttime">
+                <label for="appt">Starttime:</label>
+                <input type="time" id="appt" name="appt"> 
             </div>
-            <div>
-                <label for="enddate">End Date:</label>
-                <input type="date" id="enddate" name="enddate">
+            <div class="endtime">
+                <label for="appt">Endtime:</label>
+                <input type="time" id="appt" name="appt"> 
             </div>
         </div>
-        <!-- not the pretiest solution, maybe drop down menu? and maybe times should be added next 
-        to the weekday checkboxes so you can set up everything in one go -->
-        <div class="frequencyselectors">
-            <div class="weekdayselector">
-                <div class="dayselector">
-                    <input type="checkbox" id="monday" name="monday" value="Monday">
-                    <label for="monday"><p>Monday</p></label>
-                </div>
-                <div class="dayselector">
-                    <input type="checkbox" id="tuesday" name="tuesday" value="Tuesday">
-                    <label for="tuesday"><p>Tuesday</p></label>
-                </div>
-                <div class="dayselector">
-                    <input type="checkbox" id="wednesday" name="wednesday" value="Wednesday">
-                    <label for="wednesday"><p>Wednesday</p></label>
-                </div>
-                <div class="dayselector">
-                    <input type="checkbox" id="thursday" name="thursday" value="Thursday">
-                    <label for="thursday"><p>Thursday</p></label>
-                </div>
-                <div class="dayselector">
-                    <input type="checkbox" id="friday" name="friday" value="Friday">
-                    <label for="friday"><p>Friday</p></label>
-                </div>
-            </div>
-            <!-- 
-                #tried this because upper version does add some margin for some reason
-                <div class="weekdayselector">
-                <form action="/action_page.php">
-                    <input type="checkbox" id="monday" name="monday" value="Monday">
-                    <label for="monday"><p>Monday</p></label>
-                    <input type="checkbox" id="tuesday" name="tuesday" value="Tuesday">
-                    <label for="tuesday"><p>Tuesday</p></label>
-                    <input type="checkbox" id="wednesday" name="wednesday" value="Wednesday">
-                    <label for="wednesday"><p>Wednesday</p></label>
-                    <input type="checkbox" id="thursday" name="thursday" value="Thursday">
-                    <label for="thursday"><p>Thursday</p></label>
-                    <input type="checkbox" id="friday" name="friday" value="Friday">
-                    <label for="friday"><p>Friday</p></label>
-                </form>
-            </div> -->
-            <div class="monthweekselector">
-                <div class="weekselector">
-                    <input type="checkbox" id="week1" name="week1" value="Week1">
-                    <label for="week1"><p>1. Week</p></label>
-                </div>
-                <div class="weekselector">
-                    <input type="checkbox" id="week2" name="week2" value="Week2">
-                    <label for="week2"><p>2. Week</p></label>
-                </div>
-                <div class="weekselector">
-                    <input type="checkbox" id="week3" name="week3" value="Week3">
-                    <label for="week3"><p>3. Week</p></label>
-                </div>
-                <div class="weekselector">
-                    <input type="checkbox" id="week4" name="week4" value="Week4">
-                    <label for="week4"><p>4. Week</p></label>
-                </div>
-            </div>
+        <label for="frequency">Frequency:</label>
+        <select name="frequency" id="frequency">
+          <option value="1x">1x</option>
+          <option value="1xweek">1x per Week</option>
+          <option value="1xmonth">1x per Month</option>
+        </select> 
+        <div>
+            <label for="enddate">End Date:</label>
+            <input type="date" id="enddate" name="enddate">
         </div>
         <div>
             <p><button>Submit</button></p>
