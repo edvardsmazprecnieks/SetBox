@@ -4,6 +4,10 @@
     justify-content: center;
     align-items: center;
 }
+
+.add-subject {
+    float:inline-end;
+}
   
 a {
     padding: 10px 15px;
