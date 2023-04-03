@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/lessonadder.css')}}">
+{% endblock %}
+
+{% block main %}
+<h1>Create a Subject</h1>
+  <!-- <p><i class="arrow left"></i></p>-->
+  <table>
+    <tr>
+        <th>Subject Name</th>
+        <th>
+            <form method="POST">
+                <input type="text" id="subject_name" name="subject_name">
+        </th>
+    </tr>
+    <tr>
+        <th>Start Date</th>
+        <th>
+                <input type="date" id="start_date" name="start_date">
+        </th>
+    </tr>
+    <tr>
+        <th>Lesson Start Time</th>
+        <th>
+            <input type="time" id="start_time" name="start_time">
+        </th>
+    </tr>
+    <tr>
+        <th>Lesson End Time</th>
+        <th>
+            <input type="time" id="end_time" name="end_time">
+        </th>
+    </tr>
+    <tr>
+        <th>Frequency</th>
+        <th>
+                <select name="frequency" id="frequency" onchange="checkIfOnce(this);">
+                    <option value="1x">1x</option>
+                    <option value="weekly">1x per Week</option>
+                    <option value="monthly">1x per Month</option>
+                </select>
+        </th>
+    </tr>
+    <tr>
+        <th>End Date</th>
+        <th>
+            <input type="date" id="end_date" name="end_date">
+        </th>
+    </tr>
+    </div>
+    <tr>
+        <th></th>
+        <th>
+        <button>Submit</button>
+        </form>
+        </th>
+    </tr>
+    </table>
+            </form>
+{% endblock %}

@@ -39,3 +39,7 @@ def download(filename):
     file_path = "../files/"+filename
     response = make_response(send_file(file_path))
     return response
+
+@blueprint.route('/lessonadder')
+def addlesson():
+    return render_template('lesson/lessonadder.html')

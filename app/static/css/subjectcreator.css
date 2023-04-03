@@ -1,0 +1,60 @@
+.arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    /* =height */
+    padding: 20px; 
+    margin: 30px;
+  }
+
+.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+  }
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.startdate {
+    margin-top: 50px;
+}
+
+/*  #does not work for some reason; the monthweekselector is displayed elevated over the weekdayselector; 
+    it appears to be a problem with the padding or so of the weekdayselector.
+    
+    .frequencyselectors {
+    display: flex;
+    flex-direction: row;
+} */
+
+.weekdayselector {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.dayselector {
+    display: flex;
+    flex-direction: row;
+}
+
+.day {
+    width: 80px;
+}
+
+.daytimeselector {
+    height: 30px;
+}
+
+.weekmonthselector {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.weekselector {
+    display: flex;
+    flex-direction: row;
+}

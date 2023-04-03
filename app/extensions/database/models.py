@@ -1,5 +1,5 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, Date, Time, VARCHAR, ForeignKey, Boolean, func
+from sqlalchemy import Column, Integer, Date, Time, VARCHAR, ForeignKey, Boolean, func, UniqueConstraint
 from sqlalchemy.orm import column_property
 from flask_login import UserMixin
 
@@ -17,6 +17,7 @@ class Subject(Base):
     id = Column(Integer, primary_key=True)
     name = Column(VARCHAR(255), nullable=False)
     owner_user_id = Column(Integer,  ForeignKey('users.id'), nullable=False)
+    __table_args__ = (UniqueConstraint('name', 'owner_user_id', name='_name_for_owner'), )
 
 class Lesson(Base):
     __tablename__ = 'lessons'
