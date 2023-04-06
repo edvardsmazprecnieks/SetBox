@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, redirect
 from flask_login import login_required
 from datetime import datetime, timedelta, time
-from app.extensions.database.crud import Session
 from app.extensions.database.models import Lesson
 
 blueprint = Blueprint('schedule', __name__)
@@ -20,7 +19,6 @@ def schedule(date_string):
     min_time = time(hour=23, minute=59, second=59)
     max_time = time(hour=0, minute=0, second=0)
     lessons_list = []
-    s = Session()
     date = datetime.strptime(date_string, '%Y-%m-%d')
     day_of_week = date.strftime('%w')
     if int(day_of_week) == 0:
@@ -41,7 +39,7 @@ def schedule(date_string):
     sunday_1 = sunday.strftime('%d.%m.%Y')
     weekdates = [monday_1, tuesday_1, wednesday_1, thursday_1, friday_1, saturday_1, sunday_1]
     for date in weekdates:
-        lessons = s.query(Lesson).filter(Lesson.formatted_date == date).all()
+        lessons = Lesson.query.filter(Lesson.formatted_date == date).all()
         lessons_list = lessons_list + lessons
         for lesson in lessons:
             if lesson.start_time < min_time:
@@ -59,5 +57,4 @@ def schedule(date_string):
     while time_1 <= max_time_rounded:
         times.append(time_1)
         time_1 = time_1.replace(hour = time_1.hour + 1)
-    s.close()
     return render_template('schedule/schedule.html', weekdates = weekdates, times = times, lessons = lessons_list)

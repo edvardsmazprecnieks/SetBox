@@ -1,45 +1,44 @@
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, Date, Time, VARCHAR, ForeignKey, Boolean, func, UniqueConstraint
-from sqlalchemy.orm import column_property
+from app.extensions.database.crud import db
+from sqlalchemy.orm import column_property, declarative_base
 from flask_login import UserMixin
 
-Base = declarative_base()
-
-class User(Base, UserMixin):
+class User(db.Model, UserMixin):
     __tablename__ = 'users'
-    id = Column(Integer, primary_key=True)
-    email = Column(VARCHAR(255), nullable=False, unique=True)
-    password = Column(VARCHAR(1024), nullable=False)
-    first_name = Column(VARCHAR(50), nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.VARCHAR(255), nullable=False, unique=True)
+    password = db.Column(db.VARCHAR(1024), nullable=False)
+    first_name = db.Column(db.VARCHAR(50), nullable=False)
+    user_in_subjects = db.relationship('UserInSubject', backref='users', lazy=True)
     
-class Subject(Base):
+class Subject(db.Model):
     __tablename__ = 'subjects'
-    id = Column(Integer, primary_key=True)
-    name = Column(VARCHAR(255), nullable=False)
-    owner_user_id = Column(Integer,  ForeignKey('users.id'), nullable=False)
-    __table_args__ = (UniqueConstraint('name', 'owner_user_id', name='_name_for_owner'), )
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.VARCHAR(255), nullable=False)
+    owner_user_id = db.Column(db.Integer,  db.ForeignKey('users.id'), nullable=False)
+    user_in_subjects = db.relationship('UserInSubject', backref='subjects', lazy=True)
+    __table_args__ = (db.UniqueConstraint('name', 'owner_user_id', name='_name_for_owner'), )
 
-class Lesson(Base):
+class Lesson(db.Model):
     __tablename__ = 'lessons'
-    id = Column(Integer, primary_key=True)
-    subject_id = Column(Integer, ForeignKey('subjects.id'), nullable=False)
-    date = Column(Date, nullable=False)
-    formatted_date = column_property(func.to_char(date, 'dd.mm.yyyy'))
-    progress = Column(Integer)
-    start_time = Column(Time, nullable=False)
-    end_time = Column(Time, nullable=False)
-    name = Column(VARCHAR(255))
+    id = db.Column(db.Integer, primary_key=True)
+    subject_id = db.Column(db.Integer, db.ForeignKey('subjects.id'), nullable=False)
+    date = db.Column(db.Date, nullable=False)
+    formatted_date = column_property(db.func.to_char(date, 'dd.mm.yyyy'))
+    progress = db.Column(db.Integer)
+    start_time = db.Column(db.Time, nullable=False)
+    end_time = db.Column(db.Time, nullable=False)
+    name = db.Column(db.VARCHAR(255))
 
-class File(Base):
+class File(db.Model):
     __tablename__ = 'files'
-    id = Column(Integer, primary_key=True)
-    name = Column(VARCHAR(255), nullable=False)
-    type = Column(VARCHAR(10))
-    filename = Column(VARCHAR(255), nullable=False)
-    lesson_id = Column(Integer, ForeignKey('lessons.id'), nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.VARCHAR(255), nullable=False)
+    type = db.Column(db.VARCHAR(20))
+    filename = db.Column(db.VARCHAR(255), nullable=False)
+    lesson_id = db.Column(db.Integer, db.ForeignKey('lessons.id'), nullable=False)
 
-class UserInSubject(Base):
+class UserInSubject(db.Model):
     __tablename__ = 'users_in_subjects'
-    user_id = Column(Integer, ForeignKey('users.id'), primary_key=True)
-    subject_id = Column(Integer, ForeignKey('subjects.id'), primary_key=True)
-    editor = Column(Boolean, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    subject_id = db.Column(db.Integer, db.ForeignKey('subjects.id'), primary_key=True)
+    editor = db.Column(db.Boolean, nullable=False)
