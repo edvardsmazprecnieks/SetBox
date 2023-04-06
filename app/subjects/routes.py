@@ -7,7 +7,6 @@ from datetime import datetime, timedelta
 
 blueprint = Blueprint('subjects', __name__)
 
-
 @blueprint.route('/subject')
 @login_required
 def subjects():

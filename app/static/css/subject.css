@@ -1,7 +1,15 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding-left: 10%;
+  padding-right: 10%;
+
+}
+
 table, .progress-bar {
     border-collapse: collapse;
     width: 100%;
-    max-width: 800px;
+    /*max-width: 800px;*/
     margin: 0 auto;
     font-size: 16px;
     font-family: Arial, sans-serif;
@@ -32,6 +40,7 @@ table, .progress-bar {
     height: 20px;
     border: 1px solid #ccc;
     background-color: #fff;
+    margin-bottom: 30px
   }
   
   .progress {
@@ -44,13 +53,31 @@ table, .progress-bar {
     color: grey;
   }
 
-  .back-to-subjects {
-    position: fixed;
-    top: 20px;
-    left: 20px;
+  #back-to-subjects {
+    display: block;
+    width: fit-content;
+    margin: 20px 0 0 20px;
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
   }  
+
+  #add-a-lesson {
+    display: block;
+    width: fit-content;
+    margin: 20px 0 0 0px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }  
+
+
+  .button-container {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+  }

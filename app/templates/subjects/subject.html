@@ -5,9 +5,12 @@
 {% endblock %}
 
 {% block main %}
-    <a href="/subject" class="back-to-subjects">Back to subjects</a>
+    <a href="/subject" class="button" id="back-to-subjects">Back to subjects</a>
+    <div class="container">
     <h2>{{ subject_name.name }}</h2>
-    <br><br>
+    <div class="button-container">
+        <a href="/lessonadder" class="button" id="add-a-lesson">Add a lesson</a>
+    </div>
     <table>
         <tr>
             <th>Date</th>
@@ -31,8 +34,9 @@
         {% endfor %}
     </table>
     <br>
+    </div>
     <h4>Progress</h4>
     <div class="progress-bar">
         <div class="progress" style="width: {{ progress }}%;"></div>
-    </div>      
+    </div> 
 {% endblock %}
