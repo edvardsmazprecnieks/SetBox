@@ -1,3 +1,7 @@
+/* .container {
+  display: flex;
+} */
+
 table, .progress-bar {
     border-collapse: collapse;
     width: 100%;
@@ -32,6 +36,7 @@ table, .progress-bar {
     height: 20px;
     border: 1px solid #ccc;
     background-color: #fff;
+    margin-bottom: 30px
   }
   
   .progress {
@@ -45,9 +50,9 @@ table, .progress-bar {
   }
 
   .back-to-subjects {
-    position: fixed;
-    top: 20px;
-    left: 20px;
+    display: block;
+    width: fit-content;
+    margin: 20px 0 0 20px;
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;

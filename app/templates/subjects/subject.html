@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block main %}
+<div class="container">
     <a href="/subject" class="back-to-subjects">Back to subjects</a>
     <h2>{{ subject_name.name }}</h2>
     <br><br>
@@ -34,5 +35,6 @@
     <h4>Progress</h4>
     <div class="progress-bar">
         <div class="progress" style="width: {{ progress }}%;"></div>
-    </div>      
+    </div> 
+</div>     
 {% endblock %}
