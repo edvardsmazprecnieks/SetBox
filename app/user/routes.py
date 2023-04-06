@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request
 from app import app
 from app.extensions.database.models import User
-from app.extensions.database.crud import Session
+from app.extensions.database.crud import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user
 
@@ -18,9 +18,7 @@ def get_login():
 @blueprint.post('/login')
 def post_login():
     try:
-        s = Session()
-
-        user = s.query(User).filter_by(email=request.form.get('email')).first()
+        user = User.query.filter_by(email=request.form.get('email')).first()
 
         if not user:
             raise Exception('No user with the given email address was found.')
@@ -47,11 +45,10 @@ def get_register():
 @blueprint.post('/register')
 def post_register():
     try:
-        s = Session()
 
         if request.form.get('password') != request.form.get('password_confirmation'):
             return render_template('user/registration.html', error='The password confirmation must match the password.')
-        elif s.query(User).filter_by(email=request.form.get('email')).first():
+        elif User.query.filter_by(email=request.form.get('email')).first():
             return render_template('user/registration.html', error='The email address is already registered.')
     
         user = User(
@@ -60,11 +57,10 @@ def post_register():
             first_name=request.form.get('fname')
         )
     
-        s.add(user)
-        s.commit()
+        db.session.add(user)
+        db.session.commit()
 
         login_user(user)
-        s.close()
 
         return redirect(url_for('subjects.subjects'))
     
