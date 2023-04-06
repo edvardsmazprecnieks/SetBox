@@ -11,16 +11,12 @@
         <tr>
             <th>Subject</th>
             <th>
-                <form>
+                <form method="POST">
                     <div class ="subjectselector">
                         <select name="subjects" id="subjects">
-                    <!-- {% for subject in subject_names %}
-                    <option value="{{ subject[1] }}">subject[1]>{{ subject[1] }}</a>
-                    {% endfor %} -->
-                            <option value="maths">Maths</option>
-                            <option value="english">English</option>
-                            <option value="spanish">Spanish</option>
-                            <option value="german">German</option>
+                            {% for subject in subjects %}
+                                <option value="{{ subject.id }}">{{ subject.name }}</a>
+                            {% endfor %} 
                         </select>
                     </div>
             </th>
@@ -31,6 +27,22 @@
                     <div class ="dateselector">
                         <input type="date" id="lesson_date" name="lesson_date">
                     </div>
+            </th>
+        </tr>
+        <tr>
+            <th>Start Time</th>
+            <th>
+                <div class ="timeselector">
+                    <input type="time" id="start_time" name="start_time">
+                </div>
+            </th>
+        </tr>
+        <tr>
+            <th>End Time</th>
+            <th>
+                <div class ="timeselector">
+                    <input type="time" id="end_time" name="end_time">
+                </div>
             </th>
         </tr>
         <tr>
