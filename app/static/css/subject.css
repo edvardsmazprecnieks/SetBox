@@ -9,7 +9,6 @@
 table, .progress-bar {
     border-collapse: collapse;
     width: 100%;
-    /*max-width: 800px;*/
     margin: 0 auto;
     font-size: 16px;
     font-family: Arial, sans-serif;
@@ -52,17 +51,6 @@ table, .progress-bar {
   a:hover {
     color: grey;
   }
-
-  #back-to-subjects {
-    display: block;
-    width: fit-content;
-    margin: 20px 0 0 20px;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-  }  
 
   #add-a-lesson {
     display: block;
