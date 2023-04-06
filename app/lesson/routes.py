@@ -3,7 +3,7 @@ from app.extensions.database.crud import db
 from app.extensions.database.models import Subject, Lesson, File
 from datetime import datetime
 from werkzeug.utils import secure_filename
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 blueprint = Blueprint('lesson', __name__)
 @blueprint.route('/lesson/<lesson_id>')
@@ -36,7 +36,31 @@ def download(filename):
     response = make_response(send_file(file_path))
     return response
 
-@blueprint.route('/lessonadder')
+@blueprint.get('/lessonadder')
 @login_required
 def addlesson():
-    return render_template('lesson/lessonadder.html')
+    subjects = Subject.query.filter(Subject.owner_user_id == current_user.id).all()
+    return render_template('lesson/lessonadder.html', subjects = subjects)
+
+@blueprint.post('/lessonadder')
+@login_required
+def addlesson_post():
+    name = request.form['lesson_name']
+    subject_id = request.form['subjects']
+    date = request.form['lesson_date']
+    start_time = request.form['start_time']
+    end_time = request.form['end_time']
+    lesson = Lesson(
+        subject_id = subject_id,
+        date = date,
+        progress = None,
+        start_time = start_time,
+        end_time = end_time,
+        name = name
+    )
+    subject = Subject.query.filter(Subject.id == subject_id).first()
+    if subject.owner_user_id != current_user.id:
+        return redirect(url_for('lesson.addlesson'))
+    db.session.add(lesson)
+    db.session.commit()
+    return redirect(url_for('lesson.lesson', lesson_id=lesson.id))

@@ -32,12 +32,12 @@ def subject(subject_id):
 
 @blueprint.get('/add_subject')
 @login_required
-def addlesson():
+def addsubject():
     return render_template('subjects/subjectcreator.html')
 
 @blueprint.post('/add_subject')
 @login_required
-def add_lesson_func():
+def add_subject_func():
     subject_name = request.form.get('subject_name')
     subject = Subject(name=subject_name, owner_user_id=current_user.id)
     db.session.add(subject)
