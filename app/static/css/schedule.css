@@ -1,95 +1,41 @@
-.container {
-    display: flex;
-    flex-direction: column;
-}
-
-.weekselektor {
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 0.5%;
-    margin-bottom: 0.5%;
-}
-
-/* .button {
-    padding: 15px 50px;
-    text-align: center;
-    # cant make the box evenly around the arrow
-} */
-
-.arrow {
-    border: solid black;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 3px;
-    width: 10px;
-    height: 10px;
-}
-  
-.right {
-    transform: rotate(-45deg);
-    -webkit-transform: rotate(-45deg);
-}
-
-.left {
-    transform: rotate(135deg);
-    -webkit-transform: rotate(135deg);
-}
-
-nav {
-  background: red;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  height: 50px;
-}
-.nav1 {
-  margin-left: 20px;
-  margin-right: 20px;
-}
-.nav1 {
-  vertical-align: middle;
-}
-
+/* Define styles for the table */
 table {
-  margin-top: 0.5%;
+  border-collapse: collapse;
   width: 100%;
-  table-layout: fixed;
-  height: 600px;
 }
 
 td {
-  border: 1px solid;
-  max-width: 100%;
+  border: 1px solid black;
+  padding: 8px;
 }
 
-th {
-  border: 1px solid;
-}
-
-td:not(.tdtime) {
-    width:calc((100%-40px)/5);
-}
-
-.tdtime {
-    width: 40px;
-    text-align: center;
-}
-
+/* Style the "Switch to a different week" form */
 form {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  display: inline-block;
 }
 
-input {
-    width: 50px;
-    height: 50px;
+input[type=date] {
+  padding: 4px;
+  margin-right: 8px;
 }
 
-form div {
-    text-align: center;
+button {
+  padding: 4px 8px;
 }
 
-body{
+.add-lesson {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 20px;
+  padding: 12px 24px;
+  background-color: #4CAF50;
+  color: white;
   text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+.add-lesson:hover {
+  background-color: #3e8e41;
 }
