@@ -31,27 +31,33 @@ h4 {
 a {
   text-decoration: none;
 }
+
 nav {
   height: 50px;
   background: green;
 }
+
 .flexcontainer {
   display: flex;
   height: 100%;
   align-items: center;
 }
+
 nav ul {
   display: flex;
   justify-content: space-between;
 }
+
 nav ul li {
   list-style: none;
   margin-left: 20px;
 }
+
 nav ul li a {
   color: black;
   font-weight: bolder;
 }
+
 a:hover {
   color: grey;
 }
