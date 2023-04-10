@@ -38,6 +38,8 @@ a {
 nav {
   height: 50px;
   background: green;
+  display: flex;
+  align-items: center;
 }
 
 .flexcontainer {
@@ -48,7 +50,6 @@ nav {
 
 nav ul {
   display: flex;
-  justify-content: space-between;
 }
 
 nav ul li {
