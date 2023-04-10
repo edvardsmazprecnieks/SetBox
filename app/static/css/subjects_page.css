@@ -4,7 +4,7 @@
 }
 
 button {
-    align-items: end;
+    align-self: end;
 }
 
 ul {
