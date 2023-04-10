@@ -1,31 +1,21 @@
+.flexcontainer {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    align-items: end;
+}
+
+ul {
+    list-style-type: none;
+}
+
 .button-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-}
-
-.add-subject {
-    float:inline-end;
-}
-  
-a {
-    padding: 10px 15px;
-    background-color: #0c9aa2;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin: 10px;
-}
-  
-a:hover {
-    background-color: #084c50;
-    transform: translateY(-2px);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    text-decoration: none;
 }
 
 a:link { text-decoration: none; }

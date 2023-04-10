@@ -9,7 +9,6 @@
 table, .progress-bar {
     border-collapse: collapse;
     width: 100%;
-    /*max-width: 800px;*/
     margin: 0 auto;
     font-size: 16px;
     font-family: Arial, sans-serif;
@@ -31,9 +30,11 @@ table, .progress-bar {
   td {
     padding: 12px;
   }  
+  
   a {
     color: black;
   }
+
   .progress-bar {
     width: 100%;
     max-width: 800px;
