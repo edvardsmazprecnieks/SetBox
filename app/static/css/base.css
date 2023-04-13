@@ -25,15 +25,19 @@ h4 {
   font-size: 25px;
 }
 
-a {
-  text-decoration: none;
-}
-
 nav {
   height: 50px;
   background: green;
   display: flex;
   align-items: center;
+}
+
+.navlink {
+  text-decoration: none;
+}
+
+.navlink:hover {
+  color: grey;
 }
 
 .flexcontainer {
@@ -56,14 +60,9 @@ nav ul li a {
   font-weight: bolder;
 }
 
-a:hover {
-  color: grey;
-}
-
 button {
     padding: 10px 15px;
     background-color: #0c9aa2;
-    color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;

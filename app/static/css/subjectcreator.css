@@ -21,14 +21,6 @@
     margin-top: 50px;
 }
 
-/*  #does not work for some reason; the monthweekselector is displayed elevated over the weekdayselector; 
-    it appears to be a problem with the padding or so of the weekdayselector.
-    
-    .frequencyselectors {
-    display: flex;
-    flex-direction: row;
-} */
-
 .weekdayselector {
     display: flex;
     flex-direction: column;

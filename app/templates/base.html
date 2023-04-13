@@ -14,14 +14,14 @@
   <body>
     <nav>
         <ul>
-          <li><a href="{{url_for('schedule.schedule_no_date')}}">Home</a></li>
+          <li><a class="navlink" href="{{url_for('schedule.schedule_no_date')}}">Home</a></li>
           {% if not current_user.is_authenticated %}
-            <li><a href="{{url_for('user.get_login')}}">Login</a></li>
-            <li><a href="{{url_for('user.get_register')}}">Register</a></li>
+            <li><a class="navlink" href="{{url_for('user.get_login')}}">Login</a></li>
+            <li><a class="navlink" href="{{url_for('user.get_register')}}">Register</a></li>
           {% endif %}
           {% if current_user.is_authenticated %}
-            <li><a href="{{ url_for('subjects.subjects') }}">Subjects</a></li>
-            <li><a href="{{ url_for('user.logout') }}">Logout</a></li>
+            <li><a class="navlink" href="{{ url_for('subjects.subjects') }}">Subjects</a></li>
+            <li><a class="navlink" href="{{ url_for('user.logout') }}">Logout</a></li>
           {% endif %}
         </ul>
     </nav>
