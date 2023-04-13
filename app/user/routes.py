@@ -2,7 +2,6 @@ from flask import Blueprint, render_template, redirect, url_for, request
 from app import app
 from app.extensions.database.models import User
 from app.extensions.database.crud import db
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user
 
 blueprint = Blueprint('user', __name__)
@@ -22,7 +21,7 @@ def post_login():
 
         if not user:
             raise Exception('No user with the given email address was found.')
-        elif not check_password_hash(user.password, request.form.get('password')):
+        elif not user.check_password(request.form.get('password')):
             raise Exception('The password does not appear to be correct.')
         
         login_user(user)
@@ -33,7 +32,7 @@ def post_login():
         error = error_message or 'An error occurred while logging in. Please verify your email and password.'
         return render_template('user/login.html', error=error)
 
-@blueprint.get('/logout')
+@blueprint.route('/logout')
 def logout():
   logout_user()
   return redirect(url_for('user.get_login'))
@@ -53,10 +52,10 @@ def post_register():
     
         user = User(
             email=request.form.get('email'),
-            password=generate_password_hash(request.form.get('password')),
             first_name=request.form.get('fname')
         )
-    
+        user.set_password(request.form.get('password'))
+
         db.session.add(user)
         db.session.commit()
 

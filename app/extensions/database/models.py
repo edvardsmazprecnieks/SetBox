@@ -1,6 +1,7 @@
 from app.extensions.database.crud import db
-from sqlalchemy.orm import column_property, declarative_base
+from sqlalchemy.orm import column_property
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -9,6 +10,12 @@ class User(db.Model, UserMixin):
     password = db.Column(db.VARCHAR(1024), nullable=False)
     first_name = db.Column(db.VARCHAR(50), nullable=False)
     user_in_subjects = db.relationship('UserInSubject', backref='users', lazy=True)
+
+    def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
     
 class Subject(db.Model):
     __tablename__ = 'subjects'
@@ -17,6 +24,10 @@ class Subject(db.Model):
     owner_user_id = db.Column(db.Integer,  db.ForeignKey('users.id'), nullable=False)
     user_in_subjects = db.relationship('UserInSubject', backref='subjects', lazy=True)
     __table_args__ = (db.UniqueConstraint('name', 'owner_user_id', name='_name_for_owner'), )
+
+    @staticmethod
+    def find_by_name_and_owner(name, owner_id):
+        return Subject.query.filter_by(name=name, owner_user_id=owner_id).first()
 
 class Lesson(db.Model):
     __tablename__ = 'lessons'
