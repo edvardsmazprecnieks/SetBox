@@ -5,10 +5,15 @@
 {% endblock %}
 
 {% block main %}
-    <div class="container">
     <h2>{{ subject_name.name }}</h2>
-    <div class="button-container">
-        <button><a href="/lessonadder" class="add-a-lesson">Add a lesson</a></button>
+    <div class="button-container-container">
+        <div class="button-container-left">
+            <button><a href="/subject">Back</a></button>
+        </div>
+        <div class="button-container-right">
+            <button><a href="/addusertosubject/{{ subject_name.id }}">Add a user to the subject</a></button>
+            <button><a href="/lessonadder">Add a lesson</a></button>
+        </div>
     </div>
     <table>
         <tr>
@@ -33,7 +38,6 @@
         {% endfor %}
     </table>
     <br>
-    </div>
     <h4>Progress</h4>
     <div class="progress-bar">
         <div class="progress" style="width: {{ progress }}%;"></div>
