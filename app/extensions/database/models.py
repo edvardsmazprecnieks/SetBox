@@ -35,7 +35,6 @@ class Lesson(db.Model):
     subject_id = db.Column(db.Integer, db.ForeignKey('subjects.id'), nullable=False)
     date = db.Column(db.Date, nullable=False)
     formatted_date = column_property(db.func.to_char(date, 'dd.mm.yyyy'))
-    progress = db.Column(db.Integer)
     start_time = db.Column(db.Time, nullable=False)
     end_time = db.Column(db.Time, nullable=False)
     name = db.Column(db.VARCHAR(255))
@@ -47,6 +46,7 @@ class File(db.Model):
     type = db.Column(db.VARCHAR(20))
     filename = db.Column(db.VARCHAR(255), nullable=False)
     lesson_id = db.Column(db.Integer, db.ForeignKey('lessons.id'), nullable=False)
+    reviewed = db.Column(db.Boolean, nullable=False, default=False)
 
 class UserInSubject(db.Model):
     __tablename__ = 'users_in_subjects'

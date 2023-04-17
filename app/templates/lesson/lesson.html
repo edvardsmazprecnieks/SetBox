@@ -15,11 +15,15 @@
     <tr>
         <th>Name</th>
         <th>File type</th>
+        <th>Review</th>
+        <th>Delete</th>
     </tr>
     {% for file in files %}
     <tr>
-        <th><a href="/files/{{file.filename}}" target="_blank">{{ file.name }}</a></th>
+        <th {% if file.reviewed == True %} style="text-decoration: line-through;"{% endif %}><a href="/files/{{file.filename}}" target="_blank">{{ file.name }}</a></th>
         <th>{{ file.type }}</th>
+        <th {% if file.reviewed == True %} style="color: grey;"{% endif %}><a href="/done/{{ file.id }}">Done</a></th>
+        <th><a href="/delete/{{ file.id }}">Delete</a></th>
     </tr>
     {% endfor %}
     <tr>
@@ -32,6 +36,8 @@
                 <button type="submit">Upload</button>
             </form>
         </th>
+        <th></th>
+        <th></th>
     </tr>
 </table>
 {% endblock %}

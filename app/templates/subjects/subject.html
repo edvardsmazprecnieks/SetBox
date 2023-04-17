@@ -18,14 +18,14 @@
         </tr>
         {% for info in subject_info %}
             <tr>
-                <th><a href="/lesson/{{ info.id }}">{{ info.formatted_date }}</a></th>
-                {% if info.name == None %}
+                <th><a href="/lesson/{{ info.Lesson.id }}">{{ info.Lesson.formatted_date }}</a></th>
+                {% if info.Lesson.name == None %}
                     <th></th>
                 {% else %}
-                    <th>{{ info.name }}</th>
+                    <th>{{ info.Lesson.name }}</th>
                 {% endif %}
-                {% if info.progress == None %}
-                    <th>Not started</th>
+                {% if info.progress == -1 %}
+                    <th>No files added</th>
                 {% else %}
                     <th>{{ info.progress }}%</th>
                 {% endif %}

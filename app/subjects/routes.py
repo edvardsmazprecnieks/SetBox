@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request
 from app.extensions.database.crud import db
-from app.extensions.database.models import Subject, User, Lesson
-from sqlalchemy import func
+from app.extensions.database.models import Subject, User, Lesson, File
+from sqlalchemy import func, case
 from flask_login import login_required, current_user
 from datetime import datetime, timedelta
 
@@ -15,17 +15,19 @@ def subjects():
 
 
 @blueprint.route('/subject/<subject_id>')
-@login_required
+#@login_required
 def subject(subject_id):
-    if current_user.id == Subject.query.filter(Subject.id == subject_id).first().owner_user_id:
-        subject_name = Subject.query.filter(Subject.id == subject_id).first()
-        data_query=Lesson.query.filter(Subject.id == Lesson.subject_id).filter(Subject.id == subject_id).order_by(Lesson.date.desc()).all()
-        progress_query=db.session.query(func.avg(Lesson.progress).label('progress')).filter(Subject.id == Lesson.subject_id).filter(Subject.id == subject_id).first()
+    subject = Subject.query.filter(Subject.id == subject_id).first()
+    if current_user.id == subject.owner_user_id:
+        progress_case = case((File.reviewed, 1))
+        no_division_by_0_case = case((func.count(File.reviewed)>0,func.round((100*func.count(progress_case)/func.count(File.reviewed)), 0)),else_ = -1)
+        data_query=db.session.query((no_division_by_0_case).label('progress'), Lesson).join(Lesson, Lesson.id==File.lesson_id, full = True).group_by(Lesson.id).all()
+        progress_query=db.session.query((100*func.count(progress_case)/func.count(File.reviewed)).label('progress')).filter(File.lesson_id == Lesson.id).filter(Lesson.subject_id == Subject.id).filter(Subject.id==subject_id).first()
         if progress_query.progress is None:
             progress = 0
         else:
             progress = progress_query.progress
-        return render_template('subjects/subject.html', subject_name=subject_name, subject_info=data_query, progress=progress)
+        return render_template('subjects/subject.html', subject_name=subject, subject_info=data_query, progress=progress)
     else:
         return redirect(url_for('subjects.subjects'))
 
