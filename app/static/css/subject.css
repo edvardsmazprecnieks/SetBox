@@ -3,81 +3,51 @@
   flex-direction: column;
   padding-left: 10%;
   padding-right: 10%;
+}
 
+/* container for the button to be moved to the right */
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: end;
 }
 
 table, .progress-bar {
-    border-collapse: collapse;
-    width: 100%;
-    /*max-width: 800px;*/
-    margin: 0 auto;
-    font-size: 16px;
-    font-family: Arial, sans-serif;
-  }
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 auto;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+}
   
-  thead {
-    background-color: #f2f2f2;
-  }
-  
-  th {
-    text-align: left;
-    padding: 12px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
-  
-  td {
-    padding: 12px;
-  }  
-  a {
-    color: black;
-  }
-  .progress-bar {
-    width: 100%;
-    max-width: 800px;
-    height: 20px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    margin-bottom: 30px
-  }
-  
-  .progress {
-    height: 100%;
-    background-color: #2ec617;
-    transition: width 0.5s ease-in-out;
-  }
+thead {
+  background-color: #f2f2f2;
+}
 
-  a:hover {
-    color: grey;
-  }
+th {
+  text-align: left;
+  padding: 12px;
+}
 
-  #back-to-subjects {
-    display: block;
-    width: fit-content;
-    margin: 20px 0 0 20px;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-  }  
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
-  #add-a-lesson {
-    display: block;
-    width: fit-content;
-    margin: 20px 0 0 0px;
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-  }  
+td {
+  padding: 12px;
+}  
 
+.progress-bar {
+  width: 100%;
+  max-width: 800px;
+  height: 20px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  margin-bottom: 30px
+}
 
-  .button-container {
-    width: 100%;
-    display: flex;
-    justify-content: end;
-  }
+.progress {
+  height: 100%;
+  background-color: #2ec617;
+  transition: width 0.5s ease-in-out;
+}

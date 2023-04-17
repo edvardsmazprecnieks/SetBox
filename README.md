@@ -65,3 +65,10 @@ If step 5 is not working, try to create empty database in PostgreSQL:
 
 
 Any more problems? Contact @edvardsmazprecnieks .
+
+CSS and HTML Conventions:
+
+* The Navbar is designed in the base.html
+* The content for the body for all pages is in a container in base.html called "flexcontainer" which is set to "display: flex " in base.css
+* The style for all buttons is in base.css
+* 

@@ -1,17 +1,22 @@
-.container {
+.input-container {
+  text-align: center;
+}
+
+.date-input {
+  margin-top: 5px;
+  width: fit-content;
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+container {
     display: flex;
     flex-direction: column;
 }
 
-.weekselektor {
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 0.5%;
-    margin-bottom: 0.5%;
-}
-
 table {
-  margin-top: 0.5%;
   width: 100%;
   table-layout: fixed;
   height: 600px;
@@ -26,15 +31,13 @@ th {
   border: 1px solid;
 }
 
-form {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+td:not(.tdtime) {
+    width:calc((100%-40px)/5);
 }
 
-input {
-    width: 50px;
-    height: 50px;
+.tdtime {
+    width: 40px;
+    text-align: center;
 }
 
 form div {
