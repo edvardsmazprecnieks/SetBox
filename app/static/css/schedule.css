@@ -1,6 +1,22 @@
-/* Define styles for the table */
+.input-container {
+  text-align: center;
+}
+
+.date-input {
+  margin-top: 5px;
+  width: fit-content;
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+container {
+    display: flex;
+    flex-direction: column;
+}
+
 table {
-  border-collapse: collapse;
   width: 100%;
 }
 
@@ -9,18 +25,8 @@ td {
   padding: 8px;
 }
 
-/* Style the "Switch to a different week" form */
-form {
-  display: inline-block;
-}
-
-input[type=date] {
-  padding: 4px;
-  margin-right: 8px;
-}
-
-button {
-  padding: 4px 8px;
+form div {
+    text-align: center;
 }
 
 .add-lesson {

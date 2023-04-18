@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, send_file, make_response, redirect, url_for
 from app.extensions.database.crud import db
-from app.extensions.database.models import Subject, Lesson, File
+from app.extensions.database.models import Subject, Lesson, File, User
 from datetime import datetime
 from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user

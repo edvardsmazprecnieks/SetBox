@@ -74,3 +74,9 @@ def add_subject_func():
     db.session.commit()
     return redirect(url_for('subjects.subjects'))
 
+
+@blueprint.route('/addusertosubject/<subject_id>')
+@login_required
+def addusertosubject(subject_id):
+    data = Subject.query.filter(Subject.id==subject_id).first()
+    return render_template('subjects/addusertosubject.html', subject_names=data, subject_id = subject_id)

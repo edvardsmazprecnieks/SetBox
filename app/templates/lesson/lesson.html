@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-<a href="/subject/{{ info.Subject.id }}" class="back-to-subject">Back to subject</a>
+<button><a href="/subject/{{ info.Subject.id }}" class="back-to-subject">Back to subject</a></button>
 {% if info.Lesson.name == None %}
     <h2>{{ info.Subject.name }} - {{ info.Lesson.formatted_date }}</h2>
 {% else %}

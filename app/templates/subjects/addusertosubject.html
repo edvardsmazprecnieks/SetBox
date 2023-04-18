@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/addusertosubject.css')}}">
+{% endblock %}
+
+{% block main %}
+<h2>{{ subject_names.name }}</h2>
+<div class="button-container">
+    <button><a href="/subject/{{ subject_id }}">Back</a></button>
+</div>
+<table>
+    <tr>
+        <th>Usergroup</th>
+        <th>Users</th>
+    </tr>
+    <tr>
+        <td>Admin</td>
+        <td>I am the Admin</td>
+    </tr>
+    <tr>
+        <td>Editors</td>
+        <td>I am the Editor</td>
+    </tr>
+    <tr>
+        <td>Viewers</td>
+        <td>I am the Viewer</td>
+    </tr>
+</table>
+<form method="POST" action="">
+    <label for="email">Add a user:</label>
+    <input type="mail" id="email" name="Email" placeholder="samplemail@gmail.com" required>
+    <label for="userrole" class="userrole">Choose role:</label>
+    <select name="userrole" id="userrole">
+        <option value="editor">Editor</option>
+        <option value="viewer">Viewer</option>
+    </select>
+    <button class="userrole" type="submit">Submit</button>
+</form>
+{% endblock %}
