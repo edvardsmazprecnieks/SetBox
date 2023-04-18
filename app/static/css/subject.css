@@ -1,12 +1,23 @@
-.container {
+.flexcontainer {
   display: flex;
   flex-direction: column;
   padding-left: 10%;
   padding-right: 10%;
 }
 
-/* container for the button to be moved to the right */
-.button-container {
+.button-container-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-container-left {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+}
+
+.button-container-right {
   width: 100%;
   display: flex;
   justify-content: end;
