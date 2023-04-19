@@ -6,7 +6,7 @@
 
 
 {% block main %}
-<p>Switch to a different week: <form method="POST"><input type="date" id="date" name="date"><button>Submit</button></form></p> 
+<p>Switch to a different week: <form method="POST" action="/schedule"><input type="date" id="date" name="date"><button>Submit</button></form></p> 
 <a href="/lessonadder" class="add-lesson">Add a lesson</a>
 <table>
     <tr>
@@ -21,8 +21,12 @@
         {% for date in weekdates %}
         <td>
             {% for lesson in lessons %}
-            {% if lesson.formatted_date == date and lesson.start_time <= time and lesson.end_time > time %} 
-                {{ lesson.name }}
+            {% if lesson.Lesson.formatted_date == date and lesson.Lesson.start_time <= time and lesson.Lesson.end_time > time %} 
+                {% if lesson.Lesson.name != None %}
+                    {{ lesson.Lesson.name }}
+                {% else %}
+                    {{ lesson.Subject.name }}
+                {% endif %}
             {% endif %}
             {% endfor %}
         </td>
