@@ -29,8 +29,8 @@
                 {% else %}
                     <th>{{ info.Lesson.name }}</th>
                 {% endif %}
-                {% if info.progress == -1 %}
-                    <th>No files added</th>
+                {% if info.progress == 0 %}
+                    <th>No progress yet</th>
                 {% else %}
                     <th>{{ info.progress }}%</th>
                 {% endif %}

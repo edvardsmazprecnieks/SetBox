@@ -2,11 +2,12 @@ from flask import Flask
 from . import subjects, lesson, schedule, user
 from app.extensions.authentication import login_manager
 from app.extensions.database.crud import db, migrate
+from app.config import Config
 
 
-def create_app():
+def create_app(config_class = Config()):
     app = Flask(__name__)
-    app.config.from_object('app.config')
+    app.config.from_object(config_class)
 
     register_extensions(app)
     register_blueprints(app)
