@@ -1,6 +1,5 @@
 from flask_login import LoginManager
 from app.extensions.database.models import User
-from app.extensions.database.crud import Session
 
 login_manager = LoginManager()
 

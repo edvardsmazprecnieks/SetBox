@@ -1,7 +1,10 @@
 from dotenv import load_dotenv
 from os import environ
 
-load_dotenv()
+class Config():
+    def __init__(self, database_url=None, testing=None):
+        load_dotenv()
 
-SQLALCHEMY_DATABASE_URI = environ.get('DATABASE_URL')
-SECRET_KEY = environ.get('SECRET_KEY')
+        self.SQLALCHEMY_DATABASE_URI = database_url or environ.get('DATABASE_URL')
+        self.TESTING = testing or False
+        self.SECRET_KEY = environ.get('SECRET_KEY')
