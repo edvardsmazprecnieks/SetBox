@@ -9,9 +9,9 @@ blueprint = Blueprint('subjects', __name__)
 
 @blueprint.route('/subject')
 @login_required
-def subjects():
-    data = Subject.query.filter(User.id == Subject.owner_user_id).filter(Subject.owner_user_id == current_user.id).all()
-    return render_template('subjects/subjects_page.html', subject_names=data)
+def all_subjects():
+    all_user_subjects = Subject.query.filter(User.id == Subject.owner_user_id).filter(Subject.owner_user_id == current_user.id).all()
+    return render_template('subjects/subjects_page.html', subjects=all_user_subjects)
 
 
 @blueprint.route('/subject/<subject_id>')
@@ -19,17 +19,21 @@ def subjects():
 def subject(subject_id):
     subject = Subject.query.filter(Subject.id == subject_id).first()
     if current_user.id == subject.owner_user_id:
+        #if File.reviewed, then 1
         progress_case = case((File.reviewed, 1))
-        no_division_by_0_case = case((func.count(File.reviewed)>0,func.round((100*func.count(progress_case)/func.count(File.reviewed)), 0)),else_ = 0)
-        data_query=db.session.query((no_division_by_0_case).label('progress'), Lesson).join(Lesson, Lesson.id==File.lesson_id, full = True).group_by(Lesson.id).all()
-        progress_query=db.session.query((no_division_by_0_case).label('progress')).filter(File.lesson_id == Lesson.id).filter(Lesson.subject_id == Subject.id).filter(Subject.id==subject_id).first()
+        #if more than 0 Files, then calculate procentage, else 0.
+        calculate_percentage = case((func.count(File.reviewed)>0,func.round((100*func.count(progress_case)/func.count(File.reviewed)), 0)),else_ = 0)
+        #gets percentage as progress and groups with lessons
+        all_lessons_info=db.session.query((calculate_percentage).label('progress'), Lesson).join(Lesson, Lesson.id==File.lesson_id, full = True).group_by(Lesson.id).all()
+        #gets percentage as progress for all files in subject together
+        progress_query=db.session.query((calculate_percentage).label('progress')).filter(File.lesson_id == Lesson.id).filter(Lesson.subject_id == Subject.id).filter(Subject.id==subject_id).first()
         if progress_query.progress is None:
-            progress = 0
+            subject_progress = 0
         else:
-            progress = progress_query.progress
-        return render_template('subjects/subject.html', subject_name=subject, subject_info=data_query, progress=progress)
+            subject_progress = progress_query.progress
+        return render_template('subjects/subject.html', subject=subject, lessons=all_lessons_info, progress=subject_progress)
     else:
-        return redirect(url_for('subjects.subjects'))
+        return redirect(url_for('subjects.all_subjects'))
 
 
 @blueprint.get('/add_subject')
@@ -72,7 +76,7 @@ def add_subject_func():
                 lesson = Lesson(subject_id = subject_id, date = date, start_time = start_time, end_time = end_time)
                 db.session.add(lesson)
     db.session.commit()
-    return redirect(url_for('subjects.subjects'))
+    return redirect(url_for('subjects.all_subjects'))
 
 
 @blueprint.get('/addusertosubject/<subject_id>')

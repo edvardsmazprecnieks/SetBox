@@ -20,7 +20,7 @@
             <li><a class="navlink" href="{{url_for('user.get_register')}}">Register</a></li>
           {% endif %}
           {% if current_user.is_authenticated %}
-            <li><a class="navlink" href="{{ url_for('subjects.subjects') }}">Subjects</a></li>
+            <li><a class="navlink" href="{{ url_for('subjects.all_subjects') }}">Subjects</a></li>
             <li><a class="navlink" href="{{ url_for('schedule.schedule_no_date') }}">Schedule</a></li>
             <li><a class="navlink" href="{{ url_for('user.logout') }}">Logout</a></li>
           {% endif %}
