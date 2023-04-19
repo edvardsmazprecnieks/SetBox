@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: b03bcbd8f4c9
-Revises: 59988104aea8
-Create Date: 2023-04-08 12:35:34.430317
+Revision ID: bc4d32eb36e3
+Revises: 
+Create Date: 2023-04-18 16:52:25.098466
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'b03bcbd8f4c9'
-down_revision = '59988104aea8'
+revision = 'bc4d32eb36e3'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -38,7 +38,6 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('subject_id', sa.Integer(), nullable=False),
     sa.Column('date', sa.Date(), nullable=False),
-    sa.Column('progress', sa.Integer(), nullable=True),
     sa.Column('start_time', sa.Time(), nullable=False),
     sa.Column('end_time', sa.Time(), nullable=False),
     sa.Column('name', sa.VARCHAR(length=255), nullable=True),
@@ -59,6 +58,7 @@ def upgrade():
     sa.Column('type', sa.VARCHAR(length=20), nullable=True),
     sa.Column('filename', sa.VARCHAR(length=255), nullable=False),
     sa.Column('lesson_id', sa.Integer(), nullable=False),
+    sa.Column('reviewed', sa.Boolean(), nullable=False),
     sa.ForeignKeyConstraint(['lesson_id'], ['lessons.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

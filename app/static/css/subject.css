@@ -35,18 +35,15 @@ thead {
   background-color: #f2f2f2;
 }
 
-th {
+th, td {
   text-align: left;
   padding: 12px;
+  height: 10px;
 }
 
 tr:nth-child(even) {
   background-color: #f2f2f2;
 }
-
-td {
-  padding: 12px;
-}  
 
 .progress-bar {
   width: 100%;
