@@ -45,6 +45,11 @@ tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
+.deletebutton {
+  display: flex;
+  justify-content: end;
+}
+
 .progress-bar {
   width: 100%;
   max-width: 800px;
