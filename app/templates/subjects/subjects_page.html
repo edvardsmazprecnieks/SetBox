@@ -8,15 +8,28 @@
     <button class="button"><a href="/add_subject">Add a subject</a></button>
     <h1>Subjects</h1>
     <br><br>
+    <h3>Mine</h3>
     <div class="button-container">
-        <ul>
-        {% for subject in subjects %}
-        <li>
-            <button>
-                <a href="/subject/{{ subject.id }}">{{ subject.name }}</a>
-            </button>
-        </li>
-        {% endfor %}    
-        </ul>
+        {% for i in range(0, subject_names|length, 3) %}
+            <div class="button-row">
+                {% for subject in subject_names[i:i+3] %}
+                    <button>
+                        <a href="/subject/{{ subject.id }}">{{ subject.name }}</a>
+                    </button>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    <h3>Shared</h3>
+    <div class="button-container">
+        {% for i in range(0, subject_names|length, 3) %}
+            <div class="button-row">
+                {% for subject in subject_names[i:i+3] %}
+                    <button>
+                        <a href="/subject/{{ subject.id }}">{{ subject.name }}</a>
+                    </button>
+                {% endfor %}
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

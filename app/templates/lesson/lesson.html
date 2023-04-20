@@ -40,4 +40,12 @@
         <th></th>
     </tr>
 </table>
+<form>
+    <label for="lessonname">Change lesson name:</label>
+    {% if info.Lesson.name == None %}
+        <input type="text" id="lessonname" value="{{ info.Subject.name }} - {{ info.Lesson.formatted_date }}">
+    {% else %}
+        <input type="text" id="lessonname" value="{{ info.Lesson.name }}">
+    {% endif %}
+</form>
 {% endblock %}

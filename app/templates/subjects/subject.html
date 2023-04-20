@@ -20,6 +20,7 @@
             <th>Date</th>
             <th>Lesson Name</th>
             <th>Progress</th>
+            <th></th>
         </tr>
         {% for lesson in lessons %}
             <tr>
@@ -34,6 +35,7 @@
                 {% else %}
                     <th>{{ lesson.progress }}%</th>
                 {% endif %}
+               <th><button class="deletebutton">Delete</button></th>
             </tr>
         {% endfor %}
     </table>
@@ -42,4 +44,5 @@
     <div class="progress-bar">
         <div class="progress" style="width: {{ progress }}%;"></div>
     </div> 
+    <div class="deletebutton"><button>Delete Subject</button></div>
 {% endblock %}
