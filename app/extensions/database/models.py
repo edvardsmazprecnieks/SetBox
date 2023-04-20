@@ -22,12 +22,9 @@ class Subject(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.VARCHAR(255), nullable=False)
     owner_user_id = db.Column(db.Integer,  db.ForeignKey('users.id'), nullable=False)
-    user_in_subjects = db.relationship('UserInSubject', backref='subjects', lazy=True)
+    user_in_subjects = db.relationship('UserInSubject', backref='subjects', lazy=True, cascade="all, delete")
+    lessons = db.relationship('Lesson', backref='subjects', lazy=True, cascade="all, delete")
     __table_args__ = (db.UniqueConstraint('name', 'owner_user_id', name='_name_for_owner'), )
-
-    @staticmethod
-    def find_by_name_and_owner(name, owner_id):
-        return Subject.query.filter_by(name=name, owner_user_id=owner_id).first()
 
 class Lesson(db.Model):
     __tablename__ = 'lessons'
@@ -38,6 +35,7 @@ class Lesson(db.Model):
     start_time = db.Column(db.Time, nullable=False)
     end_time = db.Column(db.Time, nullable=False)
     name = db.Column(db.VARCHAR(255))
+    files = db.relationship('File', backref='lessons', lazy=True, cascade="all, delete")
 
 class File(db.Model):
     __tablename__ = 'files'

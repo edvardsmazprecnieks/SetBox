@@ -10,9 +10,9 @@
     <br><br>
     <h3>Mine</h3>
     <div class="button-container">
-        {% for i in range(0, subject_names|length, 3) %}
+        {% for i in range(0, subjects|length, 3) %}
             <div class="button-row">
-                {% for subject in subject_names[i:i+3] %}
+                {% for subject in subjects[i:i+3] %}
                     <button>
                         <a href="/subject/{{ subject.id }}">{{ subject.name }}</a>
                     </button>
@@ -22,9 +22,9 @@
     </div>
     <h3>Shared</h3>
     <div class="button-container">
-        {% for i in range(0, subject_names|length, 3) %}
+        {% for i in range(0, shared_subjects|length, 3) %}
             <div class="button-row">
-                {% for subject in subject_names[i:i+3] %}
+                {% for subject in shared_subjects[i:i+3] %}
                     <button>
                         <a href="/subject/{{ subject.id }}">{{ subject.name }}</a>
                     </button>

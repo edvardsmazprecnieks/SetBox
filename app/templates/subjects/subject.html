@@ -35,7 +35,7 @@
                 {% else %}
                     <th>{{ lesson.progress }}%</th>
                 {% endif %}
-               <th><button class="deletebutton">Delete</button></th>
+               <th><form action="/delete_lesson/{{ lesson.Lesson.id }}" method="POST"><button>Delete</button></form></th>
             </tr>
         {% endfor %}
     </table>
@@ -44,5 +44,5 @@
     <div class="progress-bar">
         <div class="progress" style="width: {{ progress }}%;"></div>
     </div> 
-    <div class="deletebutton"><button>Delete Subject</button></div>
+    <div class="deletebutton"><form action="/delete_subject/{{ subject.id }}" method="POST"><button>Delete Subject</button></form></div>
 {% endblock %}

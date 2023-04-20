@@ -23,9 +23,9 @@
             {% for lesson in lessons %}
             {% if lesson.Lesson.formatted_date == date and lesson.Lesson.start_time <= time and lesson.Lesson.end_time > time %} 
                 {% if lesson.Lesson.name != None %}
-                    {{ lesson.Lesson.name }}
+                    <a href="/lesson/{{ lesson.Lesson.id }}">{{ lesson.Lesson.name }}</a>
                 {% else %}
-                    {{ lesson.Subject.name }}
+                    <a href="/lesson/{{ lesson.Lesson.id }}">{{ lesson.Subject.name }}</a>
                 {% endif %}
             {% endif %}
             {% endfor %}

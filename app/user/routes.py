@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, redirect, url_for, request
-from app import app
 from app.extensions.database.models import User
 from app.extensions.database.crud import db
 from flask_login import login_user, logout_user
@@ -26,7 +25,7 @@ def post_login():
         
         login_user(user)
 
-        return redirect(url_for('subjects.subjects'))
+        return redirect(url_for('subjects.all_subjects'))
     
     except Exception as error_message:
         error = error_message or 'An error occurred while logging in. Please verify your email and password.'
@@ -61,7 +60,7 @@ def post_register():
 
         login_user(user)
 
-        return redirect(url_for('subjects.subjects'))
+        return redirect(url_for('subjects.all_subjects'))
     
     except Exception as error_message:
         error = error_message or 'An error occurred while creating a user. Please make sure to enter valid data.'

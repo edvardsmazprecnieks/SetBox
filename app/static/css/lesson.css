@@ -5,10 +5,17 @@
     width: fit-content;
 }
 
+/* FIX THE F*CKING WIDTH!!!!! */
+.middle-div{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
 table {
     border-collapse: collapse;
     width: 100%;
-    max-width: 800px;
+    max-width: auto;
     margin: 0 auto;
     font-size: 16px;
     font-family: Arial, sans-serif;
