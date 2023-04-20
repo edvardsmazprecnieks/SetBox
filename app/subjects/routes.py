@@ -24,7 +24,7 @@ def subject(subject_id):
         #if more than 0 Files, then calculate procentage, else 0.
         calculate_percentage = case((func.count(File.reviewed)>0,func.round((100*func.count(progress_case)/func.count(File.reviewed)), 0)),else_ = 0)
         #gets percentage as progress and groups with lessons
-        all_lessons_info=db.session.query((calculate_percentage).label('progress'), Lesson).join(Lesson, Lesson.id==File.lesson_id, full = True).group_by(Lesson.id).all()
+        all_lessons_info=db.session.query((calculate_percentage).label('progress'), Lesson).join(Lesson, Lesson.id==File.lesson_id, full = True).filter(Lesson.subject_id == Subject.id).filter(Subject.owner_user_id == User.id).filter(User.id == current_user.id).group_by(Lesson.id).order_by(Lesson.date.desc()).all()
         #gets percentage as progress for all files in subject together
         progress_query=db.session.query((calculate_percentage).label('progress')).filter(File.lesson_id == Lesson.id).filter(Lesson.subject_id == Subject.id).filter(Subject.id==subject_id).first()
         if progress_query.progress is None:
