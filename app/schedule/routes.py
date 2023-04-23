@@ -63,13 +63,13 @@ def schedule(date_string):
             microsecond=0, second=0, minute=0, hour=max_time_of_schedule.hour + 1
         )
     else:
-        max_time_rounded = max_time_of_schedule.replace(microsecond=0, second=0)
-    if min_time_of_schedule_rounded > max_time_rounded:
+        max_time_of_schedule_rounded = max_time_of_schedule.replace(microsecond=0, second=0)
+    if min_time_of_schedule_rounded > max_time_of_schedule_rounded:
         return render_template(
             "schedule/schedule.html", weekdates=all_week_dates, times=[], lessons=[]
         )
     time_of_schedule = min_time_of_schedule_rounded
-    while time_of_schedule <= max_time_rounded:
+    while time_of_schedule <= max_time_of_schedule_rounded:
         list_of_schedule_times.append(time_of_schedule)
         time_of_schedule = time_of_schedule.replace(hour=time_of_schedule.hour + 1)
     return render_template(
