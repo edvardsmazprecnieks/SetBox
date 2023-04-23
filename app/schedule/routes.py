@@ -29,32 +29,14 @@ def schedule(date_string):
     max_time_of_schedule = time(hour=0, minute=0, second=0)
     all_lessons_list = []
     given_date = datetime.strptime(date_string, "%Y-%m-%d")
-    day_of_week = given_date.strftime("%w")
-    if int(day_of_week) == 0:
-        day_of_week = 7
-    monday = given_date + timedelta(days=-int(day_of_week) + 1)
-    tuesday = given_date + timedelta(days=-int(day_of_week) + 2)
-    wednesday = given_date + timedelta(days=-int(day_of_week) + 3)
-    thursday = given_date + timedelta(days=-int(day_of_week) + 4)
-    friday = given_date + timedelta(days=-int(day_of_week) + 5)
-    saturday = given_date + timedelta(days=-int(day_of_week) + 6)
-    sunday = given_date + timedelta(days=-int(day_of_week) + 7)
-    monday_string = monday.strftime("%d.%m.%Y")
-    tuesday_string = tuesday.strftime("%d.%m.%Y")
-    wednesday_string = wednesday.strftime("%d.%m.%Y")
-    thursday_string = thursday.strftime("%d.%m.%Y")
-    friday_string = friday.strftime("%d.%m.%Y")
-    saturday_string = saturday.strftime("%d.%m.%Y")
-    sunday_string = sunday.strftime("%d.%m.%Y")
-    all_week_dates = [
-        monday_string,
-        tuesday_string,
-        wednesday_string,
-        thursday_string,
-        friday_string,
-        saturday_string,
-        sunday_string,
-    ]
+    given_day_of_week = given_date.strftime("%w")
+    if int(given_day_of_week) == 0:
+        given_day_of_week = 7
+    all_week_dates = [ ]
+    for day_of_week in range(1, 7):
+        day = given_date + timedelta(days=-int(given_day_of_week) + day_of_week)
+        day_string = day.strftime("%d.%m.%Y")
+        all_week_dates.append(day_string)
     for date in all_week_dates:
         lessons_in_date = (
             db.session.query(Lesson, Subject)
