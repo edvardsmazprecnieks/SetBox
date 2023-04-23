@@ -5,7 +5,7 @@ from app.extensions.database.crud import db, migrate
 from app.config import Config
 
 
-def create_app(config_class = Config()):
+def create_app(config_class=Config()):
     app = Flask(__name__)
     app.config.from_object(config_class)
 
@@ -21,6 +21,7 @@ def register_blueprints(app: Flask):
     app.register_blueprint(lesson.routes.blueprint)
     app.register_blueprint(schedule.routes.blueprint)
     app.register_blueprint(user.routes.blueprint)
+
 
 def register_extensions(app: Flask):
     db.init_app(app)

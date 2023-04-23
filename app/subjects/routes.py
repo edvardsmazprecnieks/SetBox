@@ -21,14 +21,24 @@ def all_subjects():
         .filter(UserInSubject.user_id == current_user.id)
         .all()
     )
-    return render_template("subjects/subjects_page.html", subjects=all_user_subjects, shared_subjects = all_shared_subjects)
+    return render_template(
+        "subjects/subjects_page.html",
+        subjects=all_user_subjects,
+        shared_subjects=all_shared_subjects,
+    )
 
 
 @blueprint.route("/subject/<subject_id>")
 @login_required
 def subject(subject_id):
     subject = Subject.query.filter(Subject.id == subject_id).first()
-    find_subject = UserInSubject.query.filter(UserInSubject.subject_id == Subject.id).filter(UserInSubject.user_id == User.id).filter(Subject.id == subject.id).filter(User.id == current_user.id).first()
+    find_subject = (
+        UserInSubject.query.filter(UserInSubject.subject_id == Subject.id)
+        .filter(UserInSubject.user_id == User.id)
+        .filter(Subject.id == subject.id)
+        .filter(User.id == current_user.id)
+        .first()
+    )
     if current_user.id == subject.owner_user_id or find_subject != None:
         # if File.reviewed, then 1
         progress_case = case((File.reviewed, 1))
@@ -142,7 +152,11 @@ def add_subject_func():
 @login_required
 def addusertosubject(subject_id):
     data = Subject.query.filter(Subject.id == subject_id).first()
-    admin = User.query.filter(User.id == Subject.owner_user_id).filter(Subject.id == subject_id).first()
+    admin = (
+        User.query.filter(User.id == Subject.owner_user_id)
+        .filter(Subject.id == subject_id)
+        .first()
+    )
     editors = (
         User.query.filter(User.id == UserInSubject.user_id)
         .filter(UserInSubject.subject_id == Subject.id)

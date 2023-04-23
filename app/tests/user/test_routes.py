@@ -22,18 +22,18 @@ from flask_login import current_user, login_user
 #         response = self.client.get('/register')
 #         assert response.status_code == 200
 
-    # def test_register_works(self):
-    #     with self.client:
-    #         response = self.client.post('/register', data={
-    #             'email': 'test_registering@setbox.de',
-    #             'password': 'test_password',
-    #             'password_confirmation': 'test_password',
-    #             'fname': 'Testy'
-    #         }, follow_redirects=True)
-    #         # not working
-    #         assert current_user.is_authenticated
-    #         assert response.status_code == 200
-    #         assert User.query.filter_by(email='test_registering@setbox.de').first() is not None
+# def test_register_works(self):
+#     with self.client:
+#         response = self.client.post('/register', data={
+#             'email': 'test_registering@setbox.de',
+#             'password': 'test_password',
+#             'password_confirmation': 'test_password',
+#             'fname': 'Testy'
+#         }, follow_redirects=True)
+#         # not working
+#         assert current_user.is_authenticated
+#         assert response.status_code == 200
+#         assert User.query.filter_by(email='test_registering@setbox.de').first() is not None
 
 #     def test_login_works(self):
 #         user = User(

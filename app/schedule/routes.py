@@ -62,7 +62,10 @@ def schedule(date_string):
             .filter(Lesson.formatted_date == date)
             .filter(Lesson.subject_id == Subject.id)
             .join(UserInSubject, Subject.id == UserInSubject.subject_id, full=True)
-            .filter((Subject.owner_user_id == current_user.id)|(UserInSubject.user_id == current_user.id))
+            .filter(
+                (Subject.owner_user_id == current_user.id)
+                | (UserInSubject.user_id == current_user.id)
+            )
             .all()
         )
         lessons_list = lessons_list + lessons

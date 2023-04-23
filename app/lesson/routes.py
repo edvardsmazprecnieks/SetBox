@@ -131,18 +131,14 @@ def download(filename):
 @blueprint.get("/lessonadder")
 @login_required
 def addlesson():
-    subjects = (
-        Subject.query.filter(
-            or_(
-                Subject.owner_user_id == current_user.id,
-                and_(
-                    UserInSubject.user_id == current_user.id,
-                    UserInSubject.editor == True
-                ),
-            )
+    subjects = Subject.query.filter(
+        or_(
+            Subject.owner_user_id == current_user.id,
+            and_(
+                UserInSubject.user_id == current_user.id, UserInSubject.editor == True
+            ),
         )
-        .all()
-    )
+    ).all()
     return render_template("lesson/lessonadder.html", subjects=subjects)
 
 
@@ -162,8 +158,16 @@ def addlesson_post():
         name=name,
     )
     subject = Subject.query.filter(Subject.id == subject_id).first()
-    user_in_subject = UserInSubject.query.filter(Subject.id == subject_id).filter(User.id == current_user.id).first()
-    if subject.owner_user_id == current_user.id or user_in_subject != None and user_in_subject.editor == True:
+    user_in_subject = (
+        UserInSubject.query.filter(Subject.id == subject_id)
+        .filter(User.id == current_user.id)
+        .first()
+    )
+    if (
+        subject.owner_user_id == current_user.id
+        or user_in_subject != None
+        and user_in_subject.editor == True
+    ):
         db.session.add(lesson)
         db.session.commit()
     return redirect(url_for("lesson.lesson", lesson_id=lesson.id))
