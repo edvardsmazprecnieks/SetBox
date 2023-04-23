@@ -61,7 +61,7 @@ def schedule(date_string):
             db.session.query(Lesson, Subject)
             .filter(Lesson.formatted_date == date)
             .filter(Lesson.subject_id == Subject.id)
-            .filter(Subject.id == UserInSubject.subject_id)
+            .join(UserInSubject, Subject.id == UserInSubject.subject_id, full=True)
             .filter((Subject.owner_user_id == current_user.id)|(UserInSubject.user_id == current_user.id))
             .all()
         )

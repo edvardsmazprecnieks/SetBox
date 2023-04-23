@@ -3,7 +3,7 @@ from unittest.mock import patch, Mock
 from app.app import create_app
 from app.extensions.database.models import User, Subject, Lesson, File
 from app.extensions.database.crud import db
-from flask_login import FlaskLoginClient, login_user
+from flask_login import FlaskLoginClient
 from app.config import Config
 from os import environ
 from sqlalchemy.engine.row import Row
@@ -171,7 +171,7 @@ class TestSubjectsRoutesWithMocking(flask_testing.TestCase):
         mock_row = Mock(spec=Row)
         mock_row.progress = 80
         mock_row.Lesson = mock_lesson
-        mock_db.session.query.return_value.join.return_value.group_by.return_value.all.return_value = [mock_row]
+        mock_db.session.query.return_value.join.return_value.filter.return_value.filter.return_value.group_by.return_value.order_by.return_value.all.return_value = [mock_row]
         mock_user = User(
             id = 1,
             email = 'testing_login@setbox.de',
