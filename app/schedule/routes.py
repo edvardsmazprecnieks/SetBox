@@ -4,6 +4,7 @@ from datetime import datetime, timedelta, time
 from app.extensions.database.models import Lesson, Subject, UserInSubject
 from flask_login import current_user
 from app.extensions.database.crud import db
+from sqlalchemy.sql.expression import or_, and_
 
 blueprint = Blueprint("schedule", __name__)
 
@@ -33,28 +34,28 @@ def schedule(date_string):
     if int(given_day_of_week) == 0:
         given_day_of_week = 7
     all_week_dates = [ ]
-    for day_of_week in range(1, 7):
+    for day_of_week in range(1, 8):
         day = given_date + timedelta(days=-int(given_day_of_week) + day_of_week)
         day_string = day.strftime("%d.%m.%Y")
         all_week_dates.append(day_string)
-    for date in all_week_dates:
-        lessons_in_date = (
-            db.session.query(Lesson, Subject)
-            .filter(Lesson.formatted_date == date)
-            .filter(Lesson.subject_id == Subject.id)
-            .join(UserInSubject, Subject.id == UserInSubject.subject_id, full=True)
-            .filter(
-                (Subject.owner_user_id == current_user.id)
-                | (UserInSubject.user_id == current_user.id)
-            )
-            .all()
+    all_lessons_list = (db.session.query(Lesson, Subject)
+        .filter(and_
+                (Lesson.date >= datetime.strptime(all_week_dates[0], "%d.%m.%Y")),
+                (Lesson.date <= datetime.strptime(all_week_dates[6], "%d.%m.%Y"))
         )
-        all_lessons_list = all_lessons_list + lessons_in_date
-        for lesson in lessons_in_date:
-            if lesson.Lesson.start_time < min_time_of_schedule:
-                min_time_of_schedule = lesson.Lesson.start_time
-            if lesson.Lesson.end_time > max_time_of_schedule:
-                max_time_of_schedule = lesson.Lesson.end_time
+        .filter(Lesson.subject_id == Subject.id)
+        .join(UserInSubject, Subject.id == UserInSubject.subject_id, full = True)
+        .filter(or_
+            (Subject.owner_user_id == current_user.id),
+            (UserInSubject.user_id == current_user.id)
+        )
+        .all()
+    )
+    for lesson in all_lessons_list:
+        if lesson.Lesson.start_time < min_time_of_schedule:
+            min_time_of_schedule = lesson.Lesson.start_time
+        if lesson.Lesson.end_time > max_time_of_schedule:
+            max_time_of_schedule = lesson.Lesson.end_time
     min_time_of_schedule_rounded = min_time_of_schedule.replace(
         microsecond=0, second=0, minute=0
     )
