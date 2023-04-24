@@ -1,8 +1,9 @@
 from flask import Flask
-from . import subjects, lesson, schedule, user
 from app.extensions.authentication import login_manager
 from app.extensions.database.database import db, migrate
 from app.config import Config
+from . import subjects, lesson, schedule, user
+
 
 
 def create_app(config_class=Config()):

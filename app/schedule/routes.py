@@ -1,10 +1,9 @@
-from flask import Blueprint, render_template, redirect, request, url_for
-from flask_login import login_required
 from datetime import datetime, timedelta, time
-from app.extensions.database.models import Lesson, Subject, UserInSubject
-from flask_login import current_user
-from app.extensions.database.database import db
+from flask import Blueprint, render_template, redirect, request, url_for
+from flask_login import login_required, current_user
 from sqlalchemy.sql.expression import and_
+from app.extensions.database.models import Lesson, Subject, UserInSubject
+from app.extensions.database.database import db
 
 blueprint = Blueprint("schedule", __name__)
 
@@ -93,8 +92,7 @@ def round_time(given_time):
 def round_time_to_next_hour(given_time):
     if given_time.replace(hour=0) > time(minute=0):
         return round_time(given_time).replace(hour=given_time.hour + 1)
-    else:
-        return round_time(given_time)
+    return round_time(given_time)
 
 
 def make_a_list_of_hours(start_time, end_time):

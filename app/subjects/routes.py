@@ -1,9 +1,9 @@
+from datetime import datetime, timedelta
 from flask import Blueprint, render_template, redirect, url_for, request
-from app.extensions.database.database import db
-from app.extensions.database.models import Subject, User, Lesson, File, UserInSubject
 from sqlalchemy import func, case
 from flask_login import login_required, current_user
-from datetime import datetime, timedelta
+from app.extensions.database.database import db
+from app.extensions.database.models import Subject, User, Lesson, File, UserInSubject
 
 blueprint = Blueprint("subjects", __name__)
 
@@ -30,9 +30,12 @@ def all_subjects():
 
 @blueprint.route("/subject/<subject_id>")
 @login_required
-def subject(subject_id):
+def subject_page(subject_id):
     subject = Subject.query.filter(Subject.id == subject_id).first()
-    if current_user.id == subject.owner_user_id or find_if_subject_is_shared(subject.id, current_user.id) == True:
+    if (
+        current_user.id == subject.owner_user_id
+        or find_if_subject_is_shared(subject.id, current_user.id) is True
+    ):
         all_lessons_info = find_all_lessons_in_subject(subject.id)
         subject_progress = find_subject_progress(subject.id)
         return render_template(
@@ -41,54 +44,61 @@ def subject(subject_id):
             lessons=all_lessons_info,
             progress=subject_progress,
         )
-    else:
-        return redirect(url_for("subjects.all_subjects"))
+    return redirect(url_for("subjects.all_subjects"))
+
 
 def find_if_subject_is_shared(subject_id, user_id):
-    query = (UserInSubject.query.filter(UserInSubject.subject_id == Subject.id)
-    .filter(UserInSubject.user_id == User.id)
-    .filter(Subject.id == subject_id)
-    .filter(User.id == user_id)
-    .first())
+    query = (
+        UserInSubject.query.filter(UserInSubject.subject_id == Subject.id)
+        .filter(UserInSubject.user_id == User.id)
+        .filter(Subject.id == subject_id)
+        .filter(User.id == user_id)
+        .first()
+    )
     if query is not None:
         return True
     return False
 
+
 def calculate_percentage_with_files():
     make_reviewed_into_1 = case((File.reviewed, 1))
     percentage = case(
-            (
-                func.count(File.reviewed) > 0,
-                func.round(
-                    (100 * func.count(make_reviewed_into_1) / func.count(File.reviewed)), 0
-                ),
+        (
+            func.count(File.reviewed) > 0,
+            func.round(
+                (100 * func.count(make_reviewed_into_1) / func.count(File.reviewed)), 0
             ),
-            else_=0,
-        )
+        ),
+        else_=0,
+    )
     return percentage
+
 
 def find_all_lessons_in_subject(subject_id):
     lessons = (
-            db.session.query((calculate_percentage_with_files()).label("progress"), Lesson)
-            .join(Lesson, Lesson.id == File.lesson_id, full=True)
-            .filter(Lesson.subject_id == Subject.id)
-            .filter(Subject.id == subject_id)
-            .group_by(Lesson.id)
-            .order_by(Lesson.date.desc())
-            .all()
-        )
+        db.session.query((calculate_percentage_with_files()).label("progress"), Lesson)
+        .join(Lesson, Lesson.id == File.lesson_id, full=True)
+        .filter(Lesson.subject_id == Subject.id)
+        .filter(Subject.id == subject_id)
+        .group_by(Lesson.id)
+        .order_by(Lesson.date.desc())
+        .all()
+    )
     return lessons
 
+
 def find_subject_progress(subject_id):
-    subject_progress_query =(db.session.query((calculate_percentage_with_files()).label("progress"))
-            .filter(File.lesson_id == Lesson.id)
-            .filter(Lesson.subject_id == Subject.id)
-            .filter(Subject.id == subject_id)
-            .first()
-        )
+    subject_progress_query = (
+        db.session.query((calculate_percentage_with_files()).label("progress"))
+        .filter(File.lesson_id == Lesson.id)
+        .filter(Lesson.subject_id == Subject.id)
+        .filter(Subject.id == subject_id)
+        .first()
+    )
     if subject_progress_query.progress is None:
         return 0
     return subject_progress_query.progress
+
 
 @blueprint.get("/add_subject")
 @login_required
@@ -166,14 +176,14 @@ def addusertosubject(subject_id):
         User.query.filter(User.id == UserInSubject.user_id)
         .filter(UserInSubject.subject_id == Subject.id)
         .filter(Subject.id == subject_id)
-        .filter(UserInSubject.editor == True)
+        .filter(UserInSubject.editor is True)
         .all()
     )
     viewers = (
         User.query.filter(User.id == UserInSubject.user_id)
         .filter(UserInSubject.subject_id == Subject.id)
         .filter(Subject.id == subject_id)
-        .filter(UserInSubject.editor == False)
+        .filter(UserInSubject.editor is False)
         .all()
     )
     return render_template(
@@ -194,7 +204,7 @@ def post_usertosubject(subject_id):
         email = request.form.get("email")
         user_role = request.form.get("userrole")
         user = User.query.filter(User.email == email).first()
-        editor = (user_role == "editor")
+        editor = user_role == "editor"
         user_in_subject = UserInSubject(
             user_id=user.id, subject_id=subject_id, editor=editor
         )

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request
+from flask_login import login_user, logout_user
 from app.extensions.database.models import User
 from app.extensions.database.database import db
-from flask_login import login_user, logout_user
 
 blueprint = Blueprint("user", __name__)
 
@@ -23,7 +23,7 @@ def post_login():
 
         if not user:
             raise Exception("No user with the given email address was found.")
-        elif not user.check_password(request.form.get("password")):
+        if not user.check_password(request.form.get("password")):
             raise Exception("The password does not appear to be correct.")
 
         login_user(user)
@@ -57,7 +57,7 @@ def post_register():
                 "user/registration.html",
                 error="The password confirmation must match the password.",
             )
-        elif User.query.filter_by(email=request.form.get("email")).first():
+        if User.query.filter_by(email=request.form.get("email")).first():
             return render_template(
                 "user/registration.html",
                 error="The email address is already registered.",

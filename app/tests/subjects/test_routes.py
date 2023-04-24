@@ -1,13 +1,13 @@
-import flask_testing
+from datetime import datetime
 from unittest.mock import patch, Mock
+from os import environ
+import flask_testing
+from flask_login import FlaskLoginClient
+from sqlalchemy.engine.row import Row
 from app.app import create_app
 from app.extensions.database.models import User, Subject, Lesson, File
 from app.extensions.database.database import db
-from flask_login import FlaskLoginClient
 from app.config import Config
-from os import environ
-from sqlalchemy.engine.row import Row
-from datetime import datetime
 
 
 class TestSubjectsRoutesSimple(flask_testing.TestCase):
@@ -169,6 +169,7 @@ class TestSubjectsRoutesWithMocking(flask_testing.TestCase):
         mock_row = Mock(spec=Row)
         mock_row.progress = 80
         mock_row.Lesson = mock_lesson
+        #line-too-long
         mock_db.session.query.return_value.join.return_value.filter.return_value.filter.return_value.group_by.return_value.order_by.return_value.all.return_value = [
             mock_row
         ]

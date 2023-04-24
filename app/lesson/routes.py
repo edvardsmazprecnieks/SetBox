@@ -1,3 +1,5 @@
+import os
+from datetime import datetime
 from flask import (
     Blueprint,
     render_template,
@@ -7,21 +9,19 @@ from flask import (
     redirect,
     url_for,
 )
-from app.extensions.database.database import db
-from app.extensions.database.models import Subject, Lesson, File, User, UserInSubject
-from datetime import datetime
 from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
-import os
 from sqlalchemy.sql.expression import and_, or_
 import filetype
+from app.extensions.database.database import db
+from app.extensions.database.models import Subject, Lesson, File, User, UserInSubject
 
 blueprint = Blueprint("lesson", __name__)
 
 
 @blueprint.get("/lesson/<lesson_id>")
 @login_required
-def lesson(lesson_id):
+def lesson_page(lesson_id):
     lesson = (
         db.session.query(Lesson, Subject)
         .filter(Subject.id == Lesson.subject_id)
@@ -59,12 +59,7 @@ def upload(lesson_id):
     )
     file.save("./files/" + filename)
     file_type = get_file_type(filename)
-    file_to_db = File(
-        filename=filename,
-        name=name,
-        lesson_id=lesson_id,
-        type=file_type
-    )
+    file_to_db = File(filename=filename, name=name, lesson_id=lesson_id, type=file_type)
     db.session.add(file_to_db)
     db.session.commit()
     return redirect(url_for("lesson.lesson", lesson_id=lesson_id))
@@ -117,7 +112,7 @@ def addlesson():
                 Subject.owner_user_id == current_user.id,
                 and_(
                     UserInSubject.user_id == current_user.id,
-                    UserInSubject.editor == True,
+                    UserInSubject.editor is True,
                 ),
             )
         )
@@ -149,8 +144,8 @@ def addlesson_post():
     )
     if (
         subject.owner_user_id == current_user.id
-        or user_in_subject != None
-        and user_in_subject.editor == True
+        or user_in_subject is not None
+        and user_in_subject.editor is True
     ):
         db.session.add(lesson)
         db.session.commit()

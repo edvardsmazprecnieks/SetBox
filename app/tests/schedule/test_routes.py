@@ -1,12 +1,12 @@
-import flask_testing
-from app.config import Config
-from app.app import create_app
+from os import environ
+from datetime import time
 from unittest.mock import patch, Mock
+import flask_testing
 from sqlalchemy.engine.row import Row
 from flask_login import FlaskLoginClient
+from app.config import Config
+from app.app import create_app
 from app.extensions.database.models import Lesson, Subject, User
-from datetime import time
-from os import environ
 from app.extensions.database.database import db
 
 
