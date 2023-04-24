@@ -58,7 +58,7 @@ def schedule(date_string):
     min_time_of_schedule = all_lessons_list[0].Lesson.start_time
     max_time_of_schedule = all_lessons_list[-1].Lesson.end_time
 
-    min_time_of_schedule_rounded = round_time_to_given_hour(min_time_of_schedule)
+    min_time_of_schedule_rounded = round_time(min_time_of_schedule)
     max_time_of_schedule_rounded = round_time_to_next_hour(max_time_of_schedule)
 
     time_of_schedule = min_time_of_schedule_rounded
@@ -86,12 +86,12 @@ def make_a_list_of_week_days(date):
     return week_dates
 
 
-def round_time_to_given_hour(given_time):
+def round_time(given_time):
     return given_time.replace(minute=0, second=0, microsecond=0)
 
 
 def round_time_to_next_hour(given_time):
     if given_time.replace(hour=0) > time(minute=0):
-        return given_time.replace(microsecond=0, second=0, minute=0, hour=given_time.hour + 1)
+        return round_time(given_time).replace(hour=given_time.hour + 1)
     else:
-        return given_time.replace(microsecond=0, second=0)
+        return round_time(given_time)
