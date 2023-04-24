@@ -126,16 +126,15 @@ def add_subject_func():
         end_date_str = request.form.get("end_date")
         end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
         delta = end_date - start_date
-        for days in range(delta.days + 1):
+        for days in range(0, delta.days + 1, 7):
             date = start_date + timedelta(days=days)
-            if date.strftime("%w") == start_date.strftime("%w"):
-                lesson = Lesson(
-                    subject_id=subject_id,
-                    date=date,
-                    start_time=start_time,
-                    end_time=end_time,
-                )
-                db.session.add(lesson)
+            lesson = Lesson(
+                subject_id=subject_id,
+                date=date,
+                start_time=start_time,
+                end_time=end_time,
+            )
+            db.session.add(lesson)
     elif selection == "monthly":
         end_date_str = request.form.get("end_date")
         end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
@@ -193,18 +192,14 @@ def post_usertosubject(subject_id):
     subject = Subject.query.filter(Subject.id == subject_id).first()
     if current_user.id == subject.owner_user_id:
         email = request.form.get("email")
-        editor_or_viewer = request.form.get("userrole")
+        user_role = request.form.get("userrole")
         user = User.query.filter(User.email == email).first()
-        if editor_or_viewer == "editor":
-            user_in_subject = UserInSubject(
-                user_id=user.id, subject_id=subject_id, editor=True
-            )
-        else:
-            user_in_subject = UserInSubject(
-                user_id=user.id, subject_id=subject_id, editor=False
-            )
-        db.session.add(user_in_subject)
-        db.session.commit()
+        editor = (user_role == "editor")
+        user_in_subject = UserInSubject(
+            user_id=user.id, subject_id=subject_id, editor=editor
+        )
+    db.session.add(user_in_subject)
+    db.session.commit()
     return redirect(url_for("subjects.addusertosubject", subject_id=subject_id))
 
 
