@@ -49,15 +49,12 @@ def schedule(date_string):
             (Subject.owner_user_id == current_user.id)|
             (UserInSubject.user_id == current_user.id)
         )
+        .order_by(Lesson.start_time)
         .all()
     )
 
-    # maybe replace with db query?
-    for lesson in all_lessons_list:
-        if lesson.Lesson.start_time < min_time_of_schedule:
-            min_time_of_schedule = lesson.Lesson.start_time
-        if lesson.Lesson.end_time > max_time_of_schedule:
-            max_time_of_schedule = lesson.Lesson.end_time
+    min_time_of_schedule = all_lessons_list[0].Lesson.start_time
+    max_time_of_schedule = all_lessons_list[-1].Lesson.end_time
 
     min_time_of_schedule_rounded = min_time_of_schedule.replace(
         microsecond=0, second=0, minute=0
