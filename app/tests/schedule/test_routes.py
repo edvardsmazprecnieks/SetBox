@@ -7,7 +7,7 @@ from flask_login import FlaskLoginClient
 from app.extensions.database.models import Lesson, Subject, User
 from datetime import time
 from os import environ
-from app.extensions.database.crud import db
+from app.extensions.database.database import db
 
 
 class TestScheduleRoutesDatabase(flask_testing.TestCase):

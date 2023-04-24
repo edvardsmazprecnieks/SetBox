@@ -7,7 +7,7 @@ from flask import (
     redirect,
     url_for,
 )
-from app.extensions.database.crud import db
+from app.extensions.database.database import db
 from app.extensions.database.models import Subject, Lesson, File, User, UserInSubject
 from datetime import datetime
 from werkzeug.utils import secure_filename

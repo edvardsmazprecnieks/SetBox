@@ -2,7 +2,7 @@ import flask_testing
 from unittest.mock import patch, Mock
 from app.app import create_app
 from app.extensions.database.models import User, Subject, Lesson, File
-from app.extensions.database.crud import db
+from app.extensions.database.database import db
 from flask_login import FlaskLoginClient
 from app.config import Config
 from os import environ

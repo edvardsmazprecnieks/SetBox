@@ -1,4 +1,4 @@
-from app.extensions.database.crud import db
+from app.extensions.database.database import db
 from sqlalchemy.orm import column_property
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash

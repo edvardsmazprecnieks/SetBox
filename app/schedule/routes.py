@@ -3,7 +3,7 @@ from flask_login import login_required
 from datetime import datetime, timedelta, time
 from app.extensions.database.models import Lesson, Subject, UserInSubject
 from flask_login import current_user
-from app.extensions.database.crud import db
+from app.extensions.database.database import db
 from sqlalchemy.sql.expression import and_
 
 blueprint = Blueprint("schedule", __name__)

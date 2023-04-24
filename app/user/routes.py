@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request
 from app.extensions.database.models import User
-from app.extensions.database.crud import db
+from app.extensions.database.database import db
 from flask_login import login_user, logout_user
 
 blueprint = Blueprint("user", __name__)

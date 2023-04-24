@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, request
-from app.extensions.database.crud import db
+from app.extensions.database.database import db
 from app.extensions.database.models import Subject, User, Lesson, File, UserInSubject
 from sqlalchemy import func, case
 from flask_login import login_required, current_user
