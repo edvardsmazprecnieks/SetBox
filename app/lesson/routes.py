@@ -14,6 +14,7 @@ from werkzeug.utils import secure_filename
 from flask_login import login_required, current_user
 import os
 from sqlalchemy.sql.expression import and_, or_
+import filetype
 
 blueprint = Blueprint("lesson", __name__)
 
@@ -21,28 +22,25 @@ blueprint = Blueprint("lesson", __name__)
 @blueprint.get("/lesson/<lesson_id>")
 @login_required
 def lesson(lesson_id):
-    data_query = (
+    lesson = (
         db.session.query(Lesson, Subject)
         .filter(Subject.id == Lesson.subject_id)
         .filter(Lesson.id == lesson_id)
         .first()
     )
-    files = (
+    files_in_lesson = (
         File.query.filter(File.lesson_id == Lesson.id)
         .filter(Lesson.id == lesson_id)
         .all()
     )
-    return render_template("lesson/lesson.html", info=data_query, files=files)
+    return render_template("lesson/lesson.html", lesson=lesson, files=files_in_lesson)
 
 
 @blueprint.post("/lesson/<lesson_id>")
 @login_required
 def change_lesson_name(lesson_id):
-    lesson_name = request.form.get("lessonname")
-    print(lesson_name)
     lesson = Lesson.query.filter(Lesson.id == lesson_id).first()
-    lesson.name = lesson_name
-    print(lesson.name)
+    lesson.name = request.form.get("lessonname")
     db.session.commit()
     return redirect(url_for("lesson.lesson", lesson_id=lesson_id))
 
@@ -60,44 +58,25 @@ def upload(lesson_id):
         + secure_filename(file.filename)
     )
     file.save("./files/" + filename)
-    if filename.endswith(".pdf"):
-        file_type = "PDF"
-    elif (
-        filename.endswith(".docx")
-        or filename.endswith(".doc")
-        or filename.endswith(".odt")
-        or filename.endswith(".rtf")
-    ):
-        file_type = "Text Document"
-    elif (
-        filename.endswith(".pptx")
-        or filename.endswith(".ppt")
-        or filename.endswith(".odp")
-        or filename.endswith(".pps")
-    ):
-        file_type = "Presentation"
-    elif filename.endswith(".xlsx") or filename.endswith(".xls"):
-        file_type = "Spreadsheet"
-    elif (
-        filename.endswith(".jpeg")
-        or filename.endswith(".jpg")
-        or filename.endswith(".png")
-        or filename.endswith(".gif")
-        or filename.endswith(".bmp")
-        or filename.endswith(".tiff")
-        or filename.endswith(".svg")
-        or filename.endswith(".webp")
-        or filename.endswith(".ico")
-        or filename.endswith(".heic")
-        or filename.endswith(".heif")
-    ):
-        file_type = "Image"
-    else:
-        file_type = "Other"
-    file_to_db = File(filename=filename, name=name, lesson_id=lesson_id, type=file_type)
+    file_type = get_file_type(filename)
+    file_to_db = File(
+        filename=filename,
+        name=name,
+        lesson_id=lesson_id,
+        type=file_type
+    )
     db.session.add(file_to_db)
     db.session.commit()
     return redirect(url_for("lesson.lesson", lesson_id=lesson_id))
+
+
+def get_file_type(filename):
+    kind = filetype.guess("./files/" + filename)
+    if kind is None:
+        file_type = "Other"
+    else:
+        file_type = kind.mime
+    return file_type
 
 
 @blueprint.route("/delete/<file_id>")
@@ -131,14 +110,19 @@ def download(filename):
 @blueprint.get("/lessonadder")
 @login_required
 def addlesson():
-    subjects = Subject.query.filter(
-        or_(
-            Subject.owner_user_id == current_user.id,
-            and_(
-                UserInSubject.user_id == current_user.id, UserInSubject.editor == True
-            ),
+    subjects = (
+        Subject.query.join(UserInSubject)
+        .filter(
+            or_(
+                Subject.owner_user_id == current_user.id,
+                and_(
+                    UserInSubject.user_id == current_user.id,
+                    UserInSubject.editor == True,
+                ),
+            )
         )
-    ).all()
+        .all()
+    )
     return render_template("lesson/lessonadder.html", subjects=subjects)
 
 
