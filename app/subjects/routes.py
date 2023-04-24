@@ -32,48 +32,9 @@ def all_subjects():
 @login_required
 def subject(subject_id):
     subject = Subject.query.filter(Subject.id == subject_id).first()
-    find_subject = (
-        UserInSubject.query.filter(UserInSubject.subject_id == Subject.id)
-        .filter(UserInSubject.user_id == User.id)
-        .filter(Subject.id == subject.id)
-        .filter(User.id == current_user.id)
-        .first()
-    )
-    if current_user.id == subject.owner_user_id or find_subject != None:
-        # if File.reviewed, then 1
-        progress_case = case((File.reviewed, 1))
-        # if more than 0 Files, then calculate procentage, else 0.
-        calculate_percentage = case(
-            (
-                func.count(File.reviewed) > 0,
-                func.round(
-                    (100 * func.count(progress_case) / func.count(File.reviewed)), 0
-                ),
-            ),
-            else_=0,
-        )
-        # gets percentage as progress and groups with lessons
-        all_lessons_info = (
-            db.session.query((calculate_percentage).label("progress"), Lesson)
-            .join(Lesson, Lesson.id == File.lesson_id, full=True)
-            .filter(Lesson.subject_id == Subject.id)
-            .filter(Subject.id == subject.id)
-            .group_by(Lesson.id)
-            .order_by(Lesson.date.desc())
-            .all()
-        )
-        # gets percentage as progress for all files in subject together
-        progress_query = (
-            db.session.query((calculate_percentage).label("progress"))
-            .filter(File.lesson_id == Lesson.id)
-            .filter(Lesson.subject_id == Subject.id)
-            .filter(Subject.id == subject_id)
-            .first()
-        )
-        if progress_query.progress is None:
-            subject_progress = 0
-        else:
-            subject_progress = progress_query.progress
+    if current_user.id == subject.owner_user_id or find_if_subject_is_shared(subject.id, current_user.id) == True:
+        all_lessons_info = find_all_lessons_in_subject(subject.id)
+        subject_progress = find_subject_progress(subject.id)
         return render_template(
             "subjects/subject.html",
             subject=subject,
@@ -83,6 +44,51 @@ def subject(subject_id):
     else:
         return redirect(url_for("subjects.all_subjects"))
 
+def find_if_subject_is_shared(subject_id, user_id):
+    query = (UserInSubject.query.filter(UserInSubject.subject_id == Subject.id)
+    .filter(UserInSubject.user_id == User.id)
+    .filter(Subject.id == subject_id)
+    .filter(User.id == user_id)
+    .first())
+    if query is not None:
+        return True
+    return False
+
+def calculate_percentage_with_files():
+    make_reviewed_into_1 = case((File.reviewed, 1))
+    percentage = case(
+            (
+                func.count(File.reviewed) > 0,
+                func.round(
+                    (100 * func.count(make_reviewed_into_1) / func.count(File.reviewed)), 0
+                ),
+            ),
+            else_=0,
+        )
+    return percentage
+
+def find_all_lessons_in_subject(subject_id):
+    lessons = (
+            db.session.query((calculate_percentage_with_files()).label("progress"), Lesson)
+            .join(Lesson, Lesson.id == File.lesson_id, full=True)
+            .filter(Lesson.subject_id == Subject.id)
+            .filter(Subject.id == subject_id)
+            .group_by(Lesson.id)
+            .order_by(Lesson.date.desc())
+            .all()
+        )
+    return lessons
+
+def find_subject_progress(subject_id):
+    subject_progress_query =(db.session.query((calculate_percentage_with_files()).label("progress"))
+            .filter(File.lesson_id == Lesson.id)
+            .filter(Lesson.subject_id == Subject.id)
+            .filter(Subject.id == subject_id)
+            .first()
+        )
+    if subject_progress_query.progress is None:
+        return 0
+    return subject_progress_query.progress
 
 @blueprint.get("/add_subject")
 @login_required
