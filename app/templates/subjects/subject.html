@@ -5,13 +5,13 @@
 {% endblock %}
 
 {% block main %}
-    <h2>{{ subject_name.name }}</h2>
+    <h2>{{ subject.name }}</h2>
     <div class="button-container-container">
         <div class="button-container-left">
             <button><a href="/subject">Back</a></button>
         </div>
         <div class="button-container-right">
-            <button><a href="/addusertosubject/{{ subject_name.id }}">Add a user to the subject</a></button>
+            <button><a href="/addusertosubject/{{ subject.id }}">Add a user to the subject</a></button>
             <button><a href="/lessonadder">Add a lesson</a></button>
         </div>
     </div>
@@ -20,20 +20,22 @@
             <th>Date</th>
             <th>Lesson Name</th>
             <th>Progress</th>
+            <th></th>
         </tr>
-        {% for info in subject_info %}
+        {% for lesson in lessons %}
             <tr>
-                <th><a href="/lesson/{{ info.id }}">{{ info.formatted_date }}</a></th>
-                {% if info.name == None %}
+                <th><a href="/lesson/{{ lesson.Lesson.id }}">{{ lesson.Lesson.formatted_date }}</a></th>
+                {% if lesson.Lesson.name == None %}
                     <th></th>
                 {% else %}
-                    <th>{{ info.name }}</th>
+                    <th>{{ lesson.Lesson.name }}</th>
                 {% endif %}
-                {% if info.progress == None %}
-                    <th>Not started</th>
+                {% if lesson.progress == 0 %}
+                    <th>No progress yet</th>
                 {% else %}
-                    <th>{{ info.progress }}%</th>
+                    <th>{{ lesson.progress }}%</th>
                 {% endif %}
+               <th><form action="/delete_lesson/{{ lesson.Lesson.id }}" method="POST"><button>Delete</button></form></th>
             </tr>
         {% endfor %}
     </table>
@@ -42,4 +44,5 @@
     <div class="progress-bar">
         <div class="progress" style="width: {{ progress }}%;"></div>
     </div> 
+    <div class="deletebutton"><form action="/delete_subject/{{ subject.id }}" method="POST"><button>Delete Subject</button></form></div>
 {% endblock %}
