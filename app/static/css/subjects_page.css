@@ -7,6 +7,7 @@ h3 {
     text-align: center;
 }
 
+
 button {
     align-self: end;
 }
@@ -22,6 +23,7 @@ ul {
     justify-content: center;
     align-items: center;
 }
+
 
 a:link { text-decoration: none; }
 

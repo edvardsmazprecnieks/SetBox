@@ -3,13 +3,14 @@
 }
 
 .date-input {
-  margin-top: 5px;
-  width: fit-content;
   display: block;
   margin: 0 auto;
-  margin-top: 20px;
   margin-bottom: 20px;
+  margin-top: 5px;
+  margin-top: 20px;
+  width: fit-content;
 }
+
 
 container {
     display: flex;
@@ -20,6 +21,7 @@ table {
   width: 100%;
 }
 
+
 td {
   border: 1px solid black;
   padding: 8px;
@@ -29,18 +31,20 @@ form div {
     text-align: center;
 }
 
+
 .add-lesson {
+  background-color: #4CAF50;
+  border-radius: 4px;
+  color: white;
   display: inline-block;
-  vertical-align: middle;
+  font-size: 16px;
   margin-left: 20px;
   padding: 12px 24px;
-  background-color: #4CAF50;
-  color: white;
   text-align: center;
   text-decoration: none;
-  font-size: 16px;
-  border-radius: 4px;
+  vertical-align: middle;
 }
+
 
 .add-lesson:hover {
   background-color: #3e8e41;
