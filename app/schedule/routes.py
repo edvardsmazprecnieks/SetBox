@@ -8,25 +8,24 @@ from sqlalchemy.sql.expression import and_
 
 blueprint = Blueprint("schedule", __name__)
 
-
+@blueprint.get("/schedule/")
 @blueprint.get("/schedule")
 @login_required
 def schedule_no_date():
-    return redirect("/schedule/" + datetime.now().strftime("%Y-%m-%d"))
+    return redirect(url_for("schedule.create_schedule", date_string=datetime.now().strftime("%Y-%m-%d")))
 
 
 @blueprint.post("/schedule")
 @login_required
 def schedule_post_date():
     date = request.form.get("date")
-    return redirect(url_for("schedule.schedule", date_string=date))
+    return redirect(url_for("schedule.create_schedule", date_string=date))
 
 
 @blueprint.route("/schedule/<date_string>")
 @login_required
-def schedule(date_string):
+def create_schedule(date_string):
     # lists that will be used for storing data
-    list_of_schedule_times = []
     all_lessons_list = []
 
     given_date = datetime.strptime(date_string, "%Y-%m-%d")
@@ -58,13 +57,7 @@ def schedule(date_string):
     min_time_of_schedule = all_lessons_list[0].Lesson.start_time
     max_time_of_schedule = all_lessons_list[-1].Lesson.end_time
 
-    min_time_of_schedule_rounded = round_time(min_time_of_schedule)
-    max_time_of_schedule_rounded = round_time_to_next_hour(max_time_of_schedule)
-
-    time_of_schedule = min_time_of_schedule_rounded
-    while time_of_schedule <= max_time_of_schedule_rounded:
-        list_of_schedule_times.append(time_of_schedule)
-        time_of_schedule = time_of_schedule.replace(hour=time_of_schedule.hour + 1)
+    list_of_schedule_times = make_a_list_of_hours(min_time_of_schedule, max_time_of_schedule)
 
     return render_template(
         "schedule/schedule.html",
@@ -95,3 +88,13 @@ def round_time_to_next_hour(given_time):
         return round_time(given_time).replace(hour=given_time.hour + 1)
     else:
         return round_time(given_time)
+    
+def make_a_list_of_hours(start_time, end_time):
+    list_of_hours = []
+    start_time_rounded = round_time(start_time)
+    end_time_rounded = round_time_to_next_hour(end_time)
+    hour_in_list = start_time_rounded
+    while hour_in_list <= end_time_rounded:
+        list_of_hours.append(hour_in_list)
+        hour_in_list = hour_in_list.replace(hour=hour_in_list.hour + 1)
+    return list_of_hours
