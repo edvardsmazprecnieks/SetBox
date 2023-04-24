@@ -8,11 +8,16 @@ from sqlalchemy.sql.expression import and_
 
 blueprint = Blueprint("schedule", __name__)
 
+
 @blueprint.get("/schedule/")
 @blueprint.get("/schedule")
 @login_required
 def schedule_no_date():
-    return redirect(url_for("schedule.create_schedule", date_string=datetime.now().strftime("%Y-%m-%d")))
+    return redirect(
+        url_for(
+            "schedule.create_schedule", date_string=datetime.now().strftime("%Y-%m-%d")
+        )
+    )
 
 
 @blueprint.post("/schedule")
@@ -57,7 +62,9 @@ def create_schedule(date_string):
     min_time_of_schedule = all_lessons_list[0].Lesson.start_time
     max_time_of_schedule = all_lessons_list[-1].Lesson.end_time
 
-    list_of_schedule_times = make_a_list_of_hours(min_time_of_schedule, max_time_of_schedule)
+    list_of_schedule_times = make_a_list_of_hours(
+        min_time_of_schedule, max_time_of_schedule
+    )
 
     return render_template(
         "schedule/schedule.html",
@@ -88,7 +95,8 @@ def round_time_to_next_hour(given_time):
         return round_time(given_time).replace(hour=given_time.hour + 1)
     else:
         return round_time(given_time)
-    
+
+
 def make_a_list_of_hours(start_time, end_time):
     list_of_hours = []
     start_time_rounded = round_time(start_time)
